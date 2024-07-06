@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Welcome! </title>
+    {% load static %}
+    <link rel="stylesheet" type ="text/css" href ="{% static 'pages/welcome.css' %}">
+</head>
+
+<body>
+  {% load static %}
+  
+    <div class="css-typing">
+        <h1 class= "line1" >Welcome</h1>
+        <h1 class= "line2" >to the</h1>
+        <h1 class= "line3" >Tutoring Snail!</h1>
+    </div>
+
+    <img id="logo" src="{% static 'pages/snail.png' %}" alt="Tutoring Snail Logo" width="300">
+    <div class="motto">
+        <h2>"Learn at your own pace"</h2>
+    </div>
+
+    <script>
+        // Initialize html elements
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = document.querySelectorAll(".css-typing h1");
+            const photoElement = document.getElementById("logo");
+            const newTextElement = document.querySelector(".motto");
+
+            let delay = 0;
+
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = "1";
+                    line.style.width = "auto";
+                    if (index === 0) {
+                        line.classList.add("typing");
+                    }
+                    setTimeout(() => {
+                        if (index < lines.length - 1) {
+                            line.classList.remove("typing");
+                            lines[index + 1].classList.add("typing");
+                        }
+                    }, 1500);
+                }, delay);
+                delay += 1500;
+            });
+
+            // Ensure the last line retains the blinking cursor
+            setTimeout(() => {
+                const lastLine = lines[lines.length - 1];
+                lastLine.style.borderRight = "0.15em solid orange";
+                lastLine.style.animation = "blink .75s step-end infinite alternate";
+            }, delay);
+
+            // Start the photo animation as immediately as possible
+            setTimeout(() => {
+                photoElement.classList.add("fade-in");
+            }, 0);
+
+            // Show motto text after the photo has fully appeared
+            setTimeout(() => {
+                newTextElement.classList.add("show-text");
+
+                // Redirect to a new page after the text fades in
+                setTimeout(() => {
+                    document.body.classList.add("fade-out"); // Add fade-out class
+                    setTimeout(() => {
+                        window.location.href = "home";
+                    }, 1000); // Match the transition duration in CSS
+                }, 5500); // Adjust the delay as needed
+            }, delay + 500); // Add additional delay for the motto text to appear
+        });
+    </script>
+</body>
+</html>
