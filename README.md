@@ -30,7 +30,7 @@ We aim to create a stress-free learning environment that caters to various learn
 
 ## Demo 🎥
 
-Check out a live demo of the site [here](https://).
+Check out a live demo of the site [here](https://thetutoringsnail.vercel.app/).
 ![Demo](https://github.com/jtasonye/tutoring_snail/pages/static/pages/snail.png)
 
 ## Contact 📬
