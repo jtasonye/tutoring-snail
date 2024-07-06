@@ -1,0 +1,197 @@
+<!-- pages/templates/pages/home.html -->
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Audiowide">
+    <title> Home Page </title>
+    {% load static %}
+    <!-- CSS Styling -->
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            background-image: url("{% static 'pages/background.png' %}");
+            background-size: cover;
+            background-position: top;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background-color: #00509D;
+            color: #fff;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative
+        }
+
+        .logo {
+            margin-left: 20px;
+            animation: moveSnail 9s ease-in-out forwards;
+        }
+
+        /* Animation for moving snail in ? */
+        @keyframes moveSnail {
+            from {
+                transform: translateX(-120%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .logo img {
+            height: 80px;
+        }
+
+        .nav-links {
+            margin-right: 20px;
+        }
+
+        .nav-links a {
+            color: #9FFFCB;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 28px;
+            font-family: "Audiowide", sans-serif;
+
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+            color: #FFD500;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            /* background-color: #F1AB86; */
+            border-radius: 50%;
+            margin: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section .circle {
+            background-color: #F1AB86;
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section:hover .circle {
+            transform: translateY(-10px);
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section img {
+            width: 75%;
+            height: auto;
+        }
+
+        .section h2 {
+            font-family: "Audiowide", sans-serif;
+            margin-top: 15px;
+            color: #1521A0;
+            font-size: 50px;
+            font-weight: bold;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .section a {
+            text-decoration: none;
+        }
+
+        .section:hover h2 {
+            text-decoration: underline;
+            color: #1c84e5;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% load static %}
+    <header class = "header">
+
+        <div class = "logo">
+            <img src = "{% static 'pages/snail.png' %}" alt = "Logo of The Tutoring Snail">
+        </div>
+
+        <nav class = "nav-links">
+            <a href = ""> Home </a>
+            <a href = "../aboutUs"> About Us </a>
+            <a href = "../services"> Services </a>
+            <a href = "../contactUs"> Contact Us </a>
+        </nav>
+
+    </header>
+
+    
+    <div class="content">
+
+        <!-- About Us -->
+        <div class="section">
+            <a href="../aboutUs">
+                <div class="circle">
+                    <img src="{% static 'pages/aboutUs.png' %}" alt="image showing an about us icon">
+                </div>
+                <h2>About Us</h2>
+            </a>
+        </div>
+
+        <!-- Services -->
+        <div class="section">
+            <a href="../services">
+                <div class="circle">
+                    <img src="{% static 'pages/services.png' %}" alt="Services">
+                </div>
+                <h2>Services</h2>
+            </a>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="section">
+            <a href="../contactUs">
+                <div class="circle">
+                    <img src="{% static 'pages/contactUs.png' %}" alt="Contact Us">
+                </div>
+                <h2>Contact Us</h2>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

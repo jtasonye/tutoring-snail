@@ -1,0 +1,6 @@
+To run: python3 manage.py runserver
+
+Create virtual environment( this helps with managing dependencies )
+Init: python3 -m venv venv
+Activate: source venv/bin/activate
+Deactivate: deactivate
