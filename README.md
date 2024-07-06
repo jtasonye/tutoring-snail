@@ -3,10 +3,10 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features ✨](#features-✨)
-- [Tech Stack 📚](#techstack-📚)
-- [Demo 🎥](#demo-🎥)
-- [Contact 📬](#contact-📬)
+- [Features ✨](#features)
+- [Tech Stack 📚](#techstack)
+- [Demo 🎥](#demo)
+- [Contact 📬](#contact)
 
 ## Overview
 
