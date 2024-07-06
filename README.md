@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features ✨](#features)
+- [Features ✨](#features-✨)
 - [Tech Stack 📚](#techstack)
 - [Demo 🎥](#demo)
 - [Contact 📬](#contact)
