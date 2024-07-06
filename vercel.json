@@ -3,13 +3,13 @@
     {
       "src": "api/wsgi.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "static/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    },
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
