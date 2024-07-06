@@ -1,5 +1,5 @@
-🐌 **_Welcome_** to *The Tutoring Snail* repository! 🍎
-
+## 🐌 **_Welcome_** to *The Tutoring Snail* repository! 🍎
+          
 ## Table of Contents
 
 - [Overview](#overview)
@@ -10,9 +10,8 @@
 
 ## Overview
 
-This is our website, which we made to offer a user-friendly introduction to our business and what services we offer. 
-Our Goal: Create a stress-free learning environment that caters to various learning styles.
-Our Motto: *"Learn at your own pace".*
+This is our website, which we made to offer a user-friendly introduction to our business and what services we offer.<br>
+We aim to create a stress-free learning environment that caters to various learning styles.
 
 ## Features ✨
 
@@ -37,7 +36,7 @@ Check out a live demo of the site [here](https://).
 ## Contact 📬
 
 For any questions or feedback, please contact us at:
-📧: mya.randolph@gordon.edu
-📧: jason.asonye@gordon.edu
+<br>📧: mya.randolph@gordon.edu
+<br>📧: jason.asonye@gordon.edu
 
-We hope you enjoy visiting our site!
+We hope you enjoy our site!
