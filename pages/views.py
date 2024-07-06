@@ -13,8 +13,8 @@ def home( request ):
 def about(request):
   return render( request, 'pages/aboutUs.html' )
 
-def contact( request ):
-  return render( request, 'pages/contactUs.html' )
+def book( request ):
+  return render( request, 'pages/bookUs.html' )
 
 def services( request ):
   return render( request, 'pages/services.html' )
