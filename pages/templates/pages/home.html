@@ -46,7 +46,7 @@
         <div class="section">
             <a href="../bookUs">
                 <div class="circle">
-                    <img src="{% static 'pages/contactUs.png' %}" alt="Contact Us">
+                    <img src="{% static 'pages/bookUs.png' %}" alt="Contact Us">
                 </div>
                 <h2>Book Us</h2>
             </a>
@@ -64,7 +64,7 @@
     <title> Home Page </title>
     {% load static %}
 </head>
-<!-- CSS Styling -->
+
 <style>
 
     body {
@@ -88,11 +88,16 @@
     }
 
     .header {
-        background-color: #00509D;
+        /* background-color: #b87d20; */
+        /* background-image: url("{% static 'pages/Header.png' %}"); */
+        background-size: cover;
+        background-position: auto;
+        background-repeat: no-repeat;
         color: #fff;
         padding: 10px 0;
         display: flex;
         justify-content: space-between;
+        margin-top: 30px;
         align-items: center;
         position: relative
     }
@@ -113,6 +118,8 @@
 
     .logo img {
         height: 80px;
+        margin-left: 40px;
+        margin-top: -30px
     }
 
     .nav-links {
@@ -120,17 +127,20 @@
     }
 
     .nav-links a {
-        color: #9FFFCB;
+        color: #f3f4da;
         text-decoration: none;
         margin: 0 15px;
-        font-size: 28px;
+        font-size: 30px;
         font-family: "Audiowide", sans-serif;
+    }
 
+    .nav-links a:nth-child(4) {
+        margin-right: 50px;
     }
 
     .nav-links a:hover {
         text-decoration: underline;
-        color: #FFD500;
+        color: #e8ffa8;
     }
 
     .content {
@@ -154,7 +164,7 @@
     }
 
     .section .circle {
-        background-color: #86d1f1;
+        background-color: #e8ffa8;
         border-radius: 50%;
         width: 400px;
         height: 400px;
@@ -177,7 +187,7 @@
     .section h2 {
         font-family: "Audiowide", sans-serif;
         margin-top: 15px;
-        color: #1521A0;
+        color: #f3f4da;
         font-size: 50px;
         font-weight: bold;
         transition: text-decoration 0.3s ease;
@@ -189,7 +199,7 @@
 
     .section:hover h2 {
         text-decoration: underline;
-        color: #1c84e5;
+        color: #e8ffa8;
     }
 </style>
 
