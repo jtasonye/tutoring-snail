@@ -2,7 +2,7 @@
   {% load static %}
   <header class="header">
     <div class="logo">
-        <img src="{% static 'pages/snail.png' %}" alt="Logo">
+        <a href="../home"><img src="{% static 'pages/snail.png' %}" alt="Logo"></a>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     </div>
     <nav class="nav-links">
@@ -83,23 +83,20 @@
     font-family: 'Comic Sans MS', cursive, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f8ff;
-    background-image: url("{% static 'pages/background.png' %}");
+    background:#1f7f43;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
-
   .header {
-    background-color: #00509D;
-    color: #ffffff;
-    padding: 15px 0;
+    background-color: #b87d20;
+    color: #fff;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
   }
-
   .logo {
     margin-left: 20px;
     animation: snailMove 4s ease-in-out forwards;
@@ -123,7 +120,7 @@
   }
 
   .nav-links a {
-    color: #9FFFCB;
+    color: #f3f4da;
     text-decoration: none;
     margin: 0 15px;
     font-size: 28px;
@@ -132,7 +129,7 @@
 
   .nav-links a:hover {
     text-decoration: underline;
-    color: #FFD500;
+    color: #e8ffa8;
   }
 
   .form-container {
