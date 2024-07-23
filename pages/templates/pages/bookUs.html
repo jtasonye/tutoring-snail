@@ -62,7 +62,7 @@
         <label for="additional-notes">Additional Notes</label>
         <textarea id="additional-notes" name="additional-notes" rows="4"></textarea>
       </div>
-      <button type="submit">Let's Go!</button>
+      <button type="submit">Book Session!</button>
     </form>
   </div>
 
@@ -83,7 +83,7 @@
     font-family: 'Comic Sans MS', cursive, sans-serif;
     margin: 0;
     padding: 0;
-    background:#1f7f43;
+    background:#358C5B;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -91,32 +91,36 @@
   .header {
     background-color: #b87d20;
     color: #fff;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
   }
+
   .logo {
-    margin-left: 20px;
-    animation: snailMove 4s ease-in-out forwards;
+      animation: moveSnail 3s ease-in forwards;
+      margin-left: 2%;
   }
 
-  @keyframes snailMove {
-    from {
-      transform: translateX(-120%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  @keyframes moveSnail {
+      from {
+          transform: translateX(-120%);
+      }
+      to {
+          transform: translateX(-30%);
+      }
   }
-
+    
   .logo img {
-    height: 80px;
+      height: 80px;
+      margin-top: 5px;
   }
 
   .nav-links {
     margin-right: 20px;
+    display: flex;
+    margin-top: 30px;
   }
 
   .nav-links a {
