@@ -136,8 +136,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 50px;
-        flex-wrap: wrap;
+        margin-top: 5%;
     }
 
     .section {
@@ -228,7 +227,15 @@
     }
 
     /* Responsive Styles */
+    @media (max-width: 1550px) {
+      .content {
+          flex-wrap: wrap;
+      }
+    }
     @media (max-width: 768px) {
+      .content {
+          flex-wrap: wrap;
+      }
       .nav-links {
           display: none;
           flex-direction: column;
@@ -272,6 +279,10 @@
     }
 
     @media (max-width: 480px) {
+
+      .content {
+          flex-wrap: wrap;
+      }
       .nav-links a {
           font-size: 16px;
       }
