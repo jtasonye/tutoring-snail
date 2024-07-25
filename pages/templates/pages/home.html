@@ -1,311 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Montserrat:400,700">
-    <title>Home Page</title>
-    <link rel="icon" href="{% static 'pages/snail.png' %}" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet'>
+    <title>The Tutoring Snail</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="../home"><img src="{% static 'pages/snail.png' %}" alt="Logo"></a>
-        </div>
-        <nav class="nav-links">
-            <a href="">Home</a>
-            <a href="../aboutUs">About Us</a>
+  {% load static %}
+    <header>
+        <div class="logo">The Tutoring Snail</div>
+        <nav>
             <a href="../services">Services</a>
-            <a href="../bookUs">Book Us</a>
-        </nav>
-        <div class="hamburger" id="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-    </header>
-
-    <div class="content">
-        <!-- About Us -->
-        <div class="section">
-            <a href="../aboutUs">
-                <div class="circle">
-                    <img src="{% static 'pages/aboutUs.png' %}" alt="image showing an about us icon">
-                </div>
-                <h2>About Us</h2>
-            </a>
-        </div>
-
-        <!-- Services -->
-        <div class="section">
-            <a href="../services">
-                <div class="circle">
-                    <img src="{% static 'pages/services.png' %}" alt="Services">
-                </div>
-                <h2>Services</h2>
-            </a>
-        </div>
-
-        <!-- Contact Us -->
-        <div class="section">
+            <a href="../aboutUs">About</a>
+            <a href="#contact">Contact</a>
             <a href="../bookUs">
-                <div class="circle">
-                    <img src="{% static 'pages/bookUs.png' %}" alt="Contact Us">
-                </div>
-                <h2>Book Us</h2>
-            </a>
-        </div>
-    </div>
+              <button  class="book-now">Book Now</button>
+          </a>
+        </nav>
+    </header>
+    
+    <section class="intro">
+        <div class="content">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            
-            hamburger.addEventListener('click', function() {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-        });
-    </script>
+        </div>
+    </section>
+    
+    <section id="services">
+        <h2 class="main-service">Our Services</h2>
+        <div class="service-items">
+            <div class="service-item">
+                <img src="{% static 'pages/Math.png' %}" alt="Service 1">
+                <h3>Math Courses</h3>
+                <p>Explore the list of math courses we tutor! </p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'pages/Computer.png' %}" alt="Service 2">
+                <h3>Computer Science Courses</h3>
+                <p>Explore the list of computer science courses we tutor!</p>
+            </div>
+          <div class="service-item">
+            <img src="{% static 'pages/Resume.png' %}" alt="Service 3">
+            <h3>Resume Guidance</h3>
+            <p>Need help building your resume? We can help!</p>
+          </div>
+          <div class="service-item">
+            <img src="{% static 'pages/LinkedIn.png' %}" alt="Service 3">
+            <h3>LinkedIn Guidance</h3>
+            <p>Want to make your LinkedIn profile more apealling to recruiters? We can help!</p>
+          </div>
+        </div>
+    </section>
+    
+    <div class="container">
+      <div class="booking-section">
+          <h1>Book an appointment</h1>
+          <p class="description">
+              Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
+          </p>
+      </div>
+      <div class="form-section">
+          <div class="form-step">
+              <div class="step-number">1</div>
+              <h2>Choose Appointment</h2>
+              <div class="appointment-options">
+                  <div class="appointment">
+                      <h3>Free Consultation</h3>
+                      <p>30 minutes</p>
+                      <button class="book-button">Book</button>
+                  </div>
+                  <div class="appointment">
+                      <h3>Basic Service</h3>
+                      <p>1 hour @ $40.00</p>
+                      <button class="book-button">Book</button>
+                  </div>
+                  <div class="appointment">
+                      <h3>Advanced Service</h3>
+                      <p>2 hour @ $80.00</p>
+                      <button class="book-button">Book</button>
+                  </div>
+              </div>
+          </div>
+          <div class="form-step">
+              <div class="step-number">2</div>
+              <h2>Your Information</h2>
+          </div>
+          <div class="form-step">
+              <div class="step-number">3</div>
+              <h2>Confirmation</h2>
+          </div>
+      </div>
+  </div>
 </body>
 </html>
+
+
 <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #358C5B;
-      opacity: 0;
-      animation: fadeIn 2s ease-in forwards;
-    }
+body {
+    font-family: 'Sanchez';
+    margin: 0;
+    padding: 0;
+    background-color: #D5D2CD;
+    color: #352D28;
+}
 
-    @keyframes fadeIn {
-      to {
-          opacity: 1;
-      }
-    }
+header {
+    background-color: #D5D2CD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
 
-    .header {
-        background-color: #8C5B35;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-    }
+.logo {
+    font-size: 50px;
+    font-weight: bold;
+}
 
-    .logo {
-        animation: moveSnail 3s ease-in forwards;
-        margin-left: 2%;
-    }
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #352D28;
+    font-size: 30px
+}
 
-    @keyframes moveSnail {
-        from {
-            transform: translateX(-120%);
-        }
-        to {
-            transform: translateX(-30%);
-        }
-    }
-      
-    .logo img {
-        height: 80px;
-    }
+nav a:hover {
+    text-decoration: underline;
+}
 
-    .nav-links {
-        margin-right: 20px;
-        display: flex;
-        margin-top: 30px;
-    }
+.book-now {
+    background-color: #9C8B7E;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border-color: transparent;
+    color: #fff;
+    font-size: 30px;
+}
 
-    .nav-links a {
-        color: #f3f4da;
-        text-decoration: none;
-        margin: 0 15px;
-        font-size: 30px;
-        font-family: "Audiowide", sans-serif;
-    }
+.book-now:hover {
+    background-color: #352D28;
+}
 
-    .nav-links a:hover {
-        text-decoration: underline;
-        color: #e8ffa8;
-    }
+.intro {
+    background-image: url("{% static 'pages/classy.png' %}");
+    background-size: 98%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 5%;
-    }
+.main-service, #booking h2{
+    text-align: left;
+    font-size: 50px;
+    color: #352D28;
+    font-weight: bold;
+}
 
-    .section {
-        border-radius: 50%;
-        margin: 5%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+#services {
+    padding: 20px;
+    background-color: #D5D2CD;
+    text-align: center;
+}
 
-    .section .circle {
-        background-color: #e8ffa8;
-        border-radius: 50%;
-        width: 400px;
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
+.service-items {
+    display: flex;
+    justify-content: space-around;
+}
 
-    .section:hover .circle {
-        transform: translateY(-10px);
-        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-    }
+.service-item {
+    width: 60%;
+}
 
-    .section img {
-        width: 75%;
-        height: auto;
-    }
+.service-item img {
+    width: 98%;
+    height: 80%;
+}
 
-    .section h2 {
-        font-family: "Audiowide", sans-serif;
-        margin-top: 15px;
-        color: #f3f4da;
-        font-size: 50px;
-        font-weight: bold;
-        transition: text-decoration 0.3s ease;
-        text-align: center;
-    }
+.service-item img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
 
-    .section a {
-        text-decoration: none;
-    }
+/* #booking {
+    padding: 20px;
+    text-align: center;
+}
 
-    .section:hover h2 {
-        text-decoration: underline;
-        color: #e8ffa8;
-    }
+.booking-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+} */
 
-    .hamburger {
-        display: none;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        cursor: pointer;
-        width: 44px;
-        height: 33px;
-        z-index: 10;
-    }
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
 
-    .bar {
-        display: block;
-        width: 100%;
-        height: 3px;
-        margin: 6px 0;
-        background-color: white;
-        transition: all 0.4s ease;
-    }
+.booking-section {
+    flex: 1;
+    padding: 50px;
+    background-color: #d1cdc4;
+}
 
-    .active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(48deg);
-    }
+h1 {
+    font-size: 3em;
+    margin: 0 0 20px 0;
+}
 
-    .active .bar:nth-child(2) {
-        opacity: 0;
-    }
+.description {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
 
-    .active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-48deg);
-    }
+.form-section {
+    flex: 1;
+    padding: 50px;
+    background-color: #fff;
+}
 
-    .nav-links.active {
-        display: flex;
-    }
+.form-step {
+    margin-bottom: 40px;
+    background-color: #D5D2CD;
+    border-radius: 50px;
+    padding: 20px;
+}
 
-    /* Responsive Styles */
-    @media (max-width: 1550px) {
-      .content {
-          flex-wrap: wrap;
-      }
-    }
-    @media (max-width: 768px) {
-      .content {
-          flex-wrap: wrap;
-      }
-      .nav-links {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          position: absolute;
-          top: 60px;
-          left: 0;
-          background-color: rgba(0, 0, 0, 0.9);
-          text-align: center;
-          z-index: 1;
-      }
+.step-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    font-size: 1.2em;
+    margin-right: 10px;
+}
 
-      .nav-links a {
-          margin: 10px 0;
-          font-size: 18px;
-          padding: 10px 0;
-      }
+h2 {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.5em;
+    margin: 0;
+}
 
-      .hamburger {
-          display: block;
-      }
+.appointment-options {
+    margin-top: 20px;
+}
 
-      .logo img {
-          height: 60px;
-          margin-left: 20px;
-          margin-top: -20px;
-      }
+.appointment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
 
-      .section .circle {
-          width: 200px;
-          height: 200px;
-      }
+.appointment h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
 
-      .section h2 {
-          font-size: 24px;
-      }
+.appointment p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
 
-      .nav-links a:nth-child(4) {
-        margin-right: 0;
-      }
-    }
+.book-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 50px;
+}
 
-    @media (max-width: 480px) {
+.book-button:hover {
+    background-color: #444;
+}
 
-      .content {
-          flex-wrap: wrap;
-      }
-      .nav-links a {
-          font-size: 16px;
-      }
+.intro img {
+    height: auto;
+    margin-top: 20px;
+    width: fit-content;
+}
 
-      .logo img {
-          height: 50px;
-          margin-left: 10px;
-          margin-top: 5%;
-      }
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
 
-      .section .circle {
-          width: 150px;
-          height: 150px;
-      }
-
-      .section {
-          width: 50%;
-          margin-top: -5%;
-          padding: 10px 0;
-      }
-
-      .section h2 {
-          font-size: 20px;
-      }
-    }
 </style>
