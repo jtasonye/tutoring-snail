@@ -5,104 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet'>
     <title>The Tutoring Snail</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   {% load static %}
     <header>
         <div class="logo">The Tutoring Snail</div>
-        <nav>
+        <nav class="nav-links">
             <a href="../services">Services</a>
             <a href="../aboutUs">About</a>
             <a href="#contact">Contact</a>
             <a href="../bookUs">
-              <button  class="book-now">Book Now</button>
+              <button class="book-now">Book Now</button>
           </a>
         </nav>
+
+        <div class="hamburger" id="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
     </header>
     
     <section class="intro">
-        <div class="content">
 
-        </div>
     </section>
     
     <section id="services">
-        <h2 class="main-service">Our Services</h2>
+        <h2>Our Services</h2>
         <div class="service-items">
             <div class="service-item">
                 <img src="{% static 'pages/Math.png' %}" alt="Service 1">
                 <h3>Math Courses</h3>
-                <p>Explore the list of math courses we tutor! </p>
+                <p>Explore the list of math courses we tutor!</p>
             </div>
             <div class="service-item">
                 <img src="{% static 'pages/Computer.png' %}" alt="Service 2">
                 <h3>Computer Science Courses</h3>
                 <p>Explore the list of computer science courses we tutor!</p>
             </div>
-          <div class="service-item">
-            <img src="{% static 'pages/Resume.png' %}" alt="Service 3">
-            <h3>Resume Guidance</h3>
-            <p>Need help building your resume? We can help!</p>
-          </div>
-          <div class="service-item">
-            <img src="{% static 'pages/LinkedIn.png' %}" alt="Service 3">
-            <h3>LinkedIn Guidance</h3>
-            <p>Want to make your LinkedIn profile more apealling to recruiters? We can help!</p>
-          </div>
+            <div class="service-item">
+                <img src="{% static 'pages/Resume.png' %}" alt="Service 3">
+                <h3>Resume Guidance</h3>
+                <p>Need help building your resume? We can help!</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'pages/LinkedIn.png' %}" alt="Service 4">
+                <h3>LinkedIn Guidance</h3>
+                <p>Want to make your LinkedIn profile more appealing to recruiters? We can help!</p>
+            </div>
         </div>
     </section>
     
-    <div class="container">
-      <div class="booking-section">
-          <h1>Book an appointment</h1>
-          <p class="description">
-              Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
-          </p>
-      </div>
-      <div class="form-section">
-          <div class="form-step">
-              <div class="step-number">1</div>
-              <h2>Choose Appointment</h2>
-              <div class="appointment-options">
-                  <div class="appointment">
-                      <h3>Free Consultation</h3>
-                      <p>30 minutes</p>
-                      <button class="book-button">Book</button>
-                  </div>
-                  <div class="appointment">
-                      <h3>Basic Service</h3>
-                      <p>1 hour @ $40.00</p>
-                      <button class="book-button">Book</button>
-                  </div>
-                  <div class="appointment">
-                      <h3>Advanced Service</h3>
-                      <p>2 hour @ $80.00</p>
-                      <button class="book-button">Book</button>
-                  </div>
-              </div>
-          </div>
-          <div class="form-step">
-              <div class="step-number">2</div>
-              <h2>Your Information</h2>
-          </div>
-          <div class="form-step">
-              <div class="step-number">3</div>
-              <h2>Confirmation</h2>
-          </div>
-      </div>
-  </div>
+    <div class="booking-container">
+        <div class="booking-section">
+            <h1>Book an appointment</h1>
+            <p class="description">
+                Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
+            </p>
+        </div>
+        <div class="form-section">
+            <div class="form-step">
+                <div class="step-number">1</div>
+                <h2>Choose Appointment</h2>
+                <div class="appointment-options">
+                    <div class="appointment">
+                        <h3>Free Consultation</h3>
+                        <p>30 minutes</p>
+                        <button class="book-button">Book</button>
+                    </div>
+                    <div class="appointment">
+                        <h3>Basic Service</h3>
+                        <p>1 hour @ $40.00</p>
+                        <button class="book-button">Book</button>
+                    </div>
+                    <div class="appointment">
+                        <h3>Advanced Service</h3>
+                        <p>2 hours @ $80.00</p>
+                        <button class="book-button">Book</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-step">
+                <div class="step-number">2</div>
+                <h2>Your Information</h2>
+            </div>
+            <div class="form-step">
+                <div class="step-number">3</div>
+                <h2>Confirmation</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const hamburger = document.getElementById('hamburger');
+          const navLinks = document.querySelector('.nav-links');
+          
+          hamburger.addEventListener('click', function() {
+              hamburger.classList.toggle('active');
+              navLinks.classList.toggle('active');
+          });
+      });
+  </script>
 </body>
 </html>
 
-
 <style>
+
+.hamburger {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      width: 44px;
+      height: 33px;
+      z-index: 10;
+  }
+
+  .bar {
+      display: block;
+      width: 100%;
+      height: 3px;
+      margin: 6px 0;
+      background-color: white;
+      transition: all 0.4s ease;
+  }
+
+  .active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(48deg);
+  }
+
+  .active .bar:nth-child(2) {
+      opacity: 0;
+  }
+
+  .active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-48deg);
+  }
+
+  .nav-links.active {
+      display: flex;
+  }
 body {
-    font-family: 'Sanchez';
-    margin: 0;
-    padding: 0;
+    font-family: 'Sanchez', serif;
     background-color: #D5D2CD;
     color: #352D28;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 header {
@@ -111,6 +162,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -118,11 +170,16 @@ header {
     font-weight: bold;
 }
 
+nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 nav a {
     margin: 0 10px;
     text-decoration: none;
     color: #352D28;
-    font-size: 30px
+    font-size: 30px;
 }
 
 nav a:hover {
@@ -133,9 +190,10 @@ nav a:hover {
     background-color: #9C8B7E;
     padding: 10px 20px;
     border-radius: 50px;
-    border-color: transparent;
+    border: none;
     color: #fff;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .book-now:hover {
@@ -147,17 +205,10 @@ nav a:hover {
     background-size: 98%;
     background-position: center;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 690px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.main-service, #booking h2{
-    text-align: left;
-    font-size: 50px;
-    color: #352D28;
-    font-weight: bold;
 }
 
 #services {
@@ -166,18 +217,28 @@ nav a:hover {
     text-align: center;
 }
 
+#services h2 {
+    text-align: left;
+    font-size: 50px;
+    color: #352D28;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
 .service-items {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .service-item {
-    width: 60%;
+    width: 23%; /* Slightly adjusted for better fit in flexible layout */
+    margin-bottom: 20px;
 }
 
 .service-item img {
     width: 98%;
-    height: 80%;
+    height: auto;
 }
 
 .service-item img:hover {
@@ -185,27 +246,18 @@ nav a:hover {
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* #booking {
-    padding: 20px;
-    text-align: center;
-}
-
-.booking-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-} */
-
-.container {
+.booking-container {
     display: flex;
-    flex-direction: row;
-    height: 100vh;
+    flex-wrap: wrap;
+    height: auto;
+    margin: 20px;
 }
 
-.booking-section {
+.booking-section, .form-section {
     flex: 1;
-    padding: 50px;
+    padding: 20px;
     background-color: #d1cdc4;
+    margin: 10px;
 }
 
 h1 {
@@ -216,12 +268,6 @@ h1 {
 .description {
     font-size: 1.2em;
     line-height: 1.5;
-}
-
-.form-section {
-    flex: 1;
-    padding: 50px;
-    background-color: #fff;
 }
 
 .form-step {
@@ -242,13 +288,6 @@ h1 {
     line-height: 30px;
     font-size: 1.2em;
     margin-right: 10px;
-}
-
-h2 {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 1.5em;
-    margin: 0;
 }
 
 .appointment-options {
@@ -272,7 +311,7 @@ h2 {
 .appointment p {
     margin: 0;
     font-size: 0.9em;
-    color: #666;
+    color:  #352D28;
 }
 
 .book-button {
@@ -289,15 +328,69 @@ h2 {
     background-color: #444;
 }
 
-.intro img {
-    height: auto;
-    margin-top: 20px;
-    width: fit-content;
-}
+@media (max-width: 768px) {
 
-.container {
-    width: 100%;
-    margin: 0 auto;
-}
+    .intro {
+        height: 200px
+    }
 
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color:  #352D28;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .nav-links a {
+        margin: 10px 0;
+        font-size: 18px;
+        padding: 10px 0;
+        color: white;
+    }
+
+    .hamburger {
+        display: block;
+      }
+
+
+    .service-item {
+        width: 90%;
+    }
+
+    .booking-section, .form-section {
+        flex: 1 1 100%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .description {
+        font-size: 1em;
+    }
+
+    .step-number {
+        width: 20px;
+        height: 20px;
+        font-size: 0.9em;
+    }
+
+    .appointment {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .appointment h3, .appointment p {
+        margin-bottom: 5px;
+    }
+}
 </style>
