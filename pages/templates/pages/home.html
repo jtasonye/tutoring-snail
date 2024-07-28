@@ -26,9 +26,7 @@
         </div>
     </header>
     
-    <section class="intro">
-
-    </section>
+    <section class="intro"></section>
     
     <section id="services">
         <h2>Our Services</h2>
@@ -63,7 +61,7 @@
                 Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
             </p>
         </div>
-        <div class="form-section">
+        <div class="form-section" id="form-section">
             <div class="form-step">
                 <div class="step-number">1</div>
                 <h2>Choose Appointment</h2>
@@ -85,11 +83,33 @@
                     </div>
                 </div>
             </div>
-            <div class="form-step">
+            <div class="form-step info-form" id="info-section">
+              <div class="step-number">2</div>
+              <h2>Your Information</h2>
+            </div>
+            <div class="form-step info-form-after" id="info-section">
                 <div class="step-number">2</div>
                 <h2>Your Information</h2>
+                <div>
+                  <form>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                      <option value="australia">Australia</option>
+                      <option value="canada">Canada</option>
+                      <option value="usa">USA</option>
+                    </select>
+                  
+                    <input type="submit" value="Submit">
+                  </form>
+                </div>
             </div>
-            <div class="form-step">
+            <div class="form-step confirmation-form">
                 <div class="step-number">3</div>
                 <h2>Confirmation</h2>
             </div>
@@ -160,14 +180,41 @@
 
         function selectTime(slot) {
             closePopup();
-            document.getElementById('form-section').style.display = 'block';
-            // Additional logic to handle the selected time can be added here
+            document.querySelector('.appointment-options').style.display = 'none';
+            document.querySelector('.info-form').style.display = 'none';
+            document.querySelector('.info-form-after').style.display = 'block';
+            document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
 
 <style>
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #9C8B7E;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #352D28;
+}
 
 body {
     font-family: 'Sanchez', serif;
@@ -254,13 +301,13 @@ nav a:hover {
 }
 
 .service-item {
-    width: 23%; /* Slightly adjusted for better fit in flexible layout */
+    width: 23%; 
     margin-bottom: 20px;
 }
 
 .service-item img {
     width: 98%;
-    height: auto;
+    height: 60%;
 }
 
 .service-item img:hover {
@@ -275,7 +322,13 @@ nav a:hover {
     margin: 20px;
 }
 
-.booking-section, .form-section {
+.booking-section {
+    text-align: left;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.form-section {
     flex: 1;
     padding: 20px;
     background-color: #d1cdc4;
@@ -306,13 +359,6 @@ h1 {
     justify-content: center;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-h2 {
-    display: inline-block;
-    font-size: 2em;
-    margin: 0;
-    vertical-align: middle;
 }
 
 .appointment-options {
@@ -436,5 +482,15 @@ ul li button:hover {
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
     }
+}
+
+.appointment-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.info-form-after {
+    display: none;
 }
 </style>
