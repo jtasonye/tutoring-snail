@@ -105,14 +105,26 @@
                       <option value="usa">USA</option>
                     </select>
                   
-                    <input type="submit" value="Submit">
+                    <button type="button" class="back-button" onclick="goBack()">Back</button>
+                    <button class="submit-button">Submit</button>
                   </form>
                 </div>
             </div>
-            <div class="form-step confirmation-form">
-                <div class="step-number">3</div>
-                <h2>Confirmation</h2>
-            </div>
+          <div>
+            <div class="form-step confirmation-form-after" id="confirmation-section-after">
+              <div class="step-number">3</div>
+              <h2>Confirmation</h2>
+          </div>
+            <div class="form-step confirmation-form" id="confirmation-section" style="display: none;">
+              <div class="step-number">3</div>
+              <h2>Confirmation</h2>
+              <p id="confirmation-appointment"></p>
+              <p id="confirmation-date"></p>
+              <p id="confirmation-time"></p>
+              <p id="confirmation-name"></p>
+              <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
+              <button onclick="cancel()">Cancel</button>
+          </div>          
         </div>
     </div>
 
@@ -125,71 +137,137 @@
     </div>
 
     <script>
-        document.getElementById('hamburger').addEventListener('click', function () {
-            this.classList.toggle('active');
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+        let selectedAppointment, selectedDate, selectedTime;
 
-        function showPopup(service, duration) {
-            const popup = document.getElementById('timePopup');
-            const timeSlots = generateTimeSlots(duration);
-            const ul = popup.querySelector('ul');
-            ul.innerHTML = '';
+function showPopup(service, duration) {
+    selectedAppointment = service;
+    const popup = document.getElementById('timePopup');
+    const timeSlots = generateTimeSlots(duration);
+    const ul = popup.querySelector('ul');
+    ul.innerHTML = '';
 
-            timeSlots.forEach(slot => {
-                const li = document.createElement('li');
-                const button = document.createElement('button');
-                button.textContent = slot;
-                button.onclick = function () {
-                    selectTime(slot);
-                };
-                li.appendChild(button);
-                ul.appendChild(li);
-            });
+    timeSlots.forEach(slot => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = slot;
+        button.onclick = function () {
+            selectTime(slot);
+        };
+        li.appendChild(button);
+        ul.appendChild(li);
+    });
 
-            popup.style.display = 'block';
+    popup.style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('timePopup').style.display = 'none';
+}
+
+function generateTimeSlots(duration) {
+    const days = ['Monday', 'Wednesday', 'Friday'];
+    const startTime = 13 * 60; // 1 pm in minutes
+    const endTime = 17 * 60; // 5 pm in minutes
+    const timeSlots = [];
+
+    days.forEach(day => {
+        for (let time = startTime; time < endTime; time += duration) {
+            timeSlots.push(`${day} ${formatTime(time)}`);
         }
+    });
 
-        function closePopup() {
-            document.getElementById('timePopup').style.display = 'none';
-        }
+    return timeSlots;
+}
 
-        function generateTimeSlots(duration) {
-            const days = ['Monday', 'Wednesday', 'Friday'];
-            const startTime = 13 * 60; // 1 pm in minutes
-            const endTime = 17 * 60; // 5 pm in minutes
-            const timeSlots = [];
+function formatTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = mins === 0 ? '00' : mins;
+    return `${formattedHour}:${formattedMinutes} ${period}`;
+}
 
-            days.forEach(day => {
-                for (let time = startTime; time < endTime; time += duration) {
-                    timeSlots.push(`${day} ${formatTime(time)}`);
-                }
-            });
+function selectTime(slot) {
+    closePopup();
+    selectedTime = slot;
+    selectedDate = slot.split(' ')[0]; // Extract the day as date
+    document.querySelector('.appointment-options').style.display = 'none';
+    document.querySelector('.info-form-after').style.display = 'block';
+    document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+}
 
-            return timeSlots;
-        }
+function goBack() {
+    document.querySelector('.info-form-after').style.display = 'none';
+    document.querySelector('.info-form').style.display = 'block';
+    document.querySelector('.appointment-options').style.display = 'flex';
+    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+}
 
-        function formatTime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const mins = minutes % 60;
-            const period = hours >= 12 ? 'PM' : 'AM';
-            const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
-            const formattedMinutes = mins === 0 ? '00' : mins;
-            return `${formattedHour}:${formattedMinutes} ${period}`;
-        }
+function goBackInfo() {
+    document.querySelector('.info-form-after').style.display = 'block';
+    document.querySelector('.info-form').style.display = 'none';
+    document.querySelector('.appointment-options').style.display = 'none';
+    document.getElementById('confirmation-section').style.display = 'none';
+    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+}
 
-        function selectTime(slot) {
-            closePopup();
-            document.querySelector('.appointment-options').style.display = 'none';
-            document.querySelector('.info-form').style.display = 'none';
-            document.querySelector('.info-form-after').style.display = 'block';
-            document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
-        }
+
+function showConfirmation() {
+    const firstName = document.getElementById('fname').value;
+    const lastName = document.getElementById('lname').value;
+
+    document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
+    document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
+    document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
+    document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+
+    document.querySelector('.info-form-after').style.display = 'none';
+    document.querySelector('.info-form').style.display = 'block';
+    document.getElementById('confirmation-section').style.display = 'block';
+    document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.querySelector('.submit-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    showConfirmation();
+});
+
+function cancel() {
+    document.getElementById('confirmation-section').style.display = 'none';
+    document.querySelector('.appointment-options').style.display = 'flex';
+}
     </script>
 </body>
 </html>
 
 <style>
+.confirmation-form {
+    display: none;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-form p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.confirmation-form button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.confirmation-form button:hover {
+    background-color: #352D28;
+}
 
 input[type=text], select {
   width: 100%;
@@ -215,6 +293,28 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #352D28;
 }
+
+.info-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-button,
+.submit-button {
+  background-color: #9C8B7E;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-button:hover,
+.submit-button:hover {
+  background-color: #352D28;
+}
+
 
 body {
     font-family: 'Sanchez', serif;
