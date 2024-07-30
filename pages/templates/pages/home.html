@@ -1,317 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Montserrat:400,700">
-    <title>Home Page</title>
-    <link rel="icon" href="{% static 'pages/snail.png' %}" type="image/x-icon">
-   
+    <link href='https://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet'>
+    <title>The Tutoring Snail</title>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="../home"><img src="{% static 'pages/snail.png' %}" alt="Logo"></a>
-        </div>
+  {% load static %}
+    <header>
+        <div class="logo">The Tutoring Snail</div>
         <nav class="nav-links">
-            <a href="">Home</a>
-            <a href="../aboutUs">About Us</a>
             <a href="../services">Services</a>
-            <a href="../bookUs">Book Us</a>
+            <a href="../aboutUs">About</a>
+            <a href="#contact">Contact</a>
+            <a href="../bookUs">
+              <button class="book-now">Book Now</button>
+          </a>
         </nav>
+
         <div class="hamburger" id="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
         </div>
     </header>
-
-    <div class="content">
-        <!-- About Us -->
-        <div class="section">
-            <a href="../aboutUs">
-                <div class="circle">
-                    <img src="{% static 'pages/aboutUs.png' %}" alt="image showing an about us icon">
-                </div>
-                <h2>About Us</h2>
-            </a>
+    
+    <section class="intro"></section>
+    
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="service-items">
+            <div class="service-item">
+                <img src="{% static 'pages/Math.png' %}" alt="Service 1">
+                <h3>Math Courses</h3>
+                <p>Explore the list of math courses we tutor!</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'pages/Computer.png' %}" alt="Service 2">
+                <h3>Computer Science Courses</h3>
+                <p>Explore the list of computer science courses we tutor!</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'pages/Resume.png' %}" alt="Service 3">
+                <h3>Resume Guidance</h3>
+                <p>Need help building your resume? We can help!</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'pages/LinkedIn.png' %}" alt="Service 4">
+                <h3>LinkedIn Guidance</h3>
+                <p>Want to make your LinkedIn profile more appealing to recruiters? We can help!</p>
+            </div>
         </div>
-
-        <!-- Services -->
-        <div class="section">
-            <a href="../services">
-                <div class="circle">
-                    <img src="{% static 'pages/services.png' %}" alt="Services">
-                </div>
-                <h2>Services</h2>
-            </a>
+    </section>
+    
+    <div class="booking-container">
+        <div class="booking-section">
+            <h1>Book an appointment</h1>
+            <p class="description">
+                Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
+            </p>
         </div>
-
-        <!-- Contact Us -->
-        <div class="section">
-            <a href="../bookUs">
-                <div class="circle">
-                    <img src="{% static 'pages/bookUs.png' %}" alt="Contact Us">
+        <div class="form-section" id="form-section">
+            <div class="form-step">
+                <div class="step-number">1</div>
+                <h2>Choose Appointment</h2>
+                <div class="appointment-options">
+                    <div class="appointment">
+                        <h3>Free Consultation</h3>
+                        <p>30 minutes</p>
+                        <button class="book-button" onclick="showPopup('Free Consultation', 30)">Book</button>
+                    </div>
+                    <div class="appointment">
+                        <h3>Basic Service</h3>
+                        <p>1 hour @ $40.00</p>
+                        <button class="book-button" onclick="showPopup('Basic Service', 60)">Book</button>
+                    </div>
+                    <div class="appointment">
+                        <h3>Advanced Service</h3>
+                        <p>2 hours @ $80.00</p>
+                        <button class="book-button" onclick="showPopup('Advanced Service', 120)">Book</button>
+                    </div>
                 </div>
-                <h2>Book Us</h2>
-            </a>
+            </div>
+            <div class="form-step info-form" id="info-section">
+              <div class="step-number">2</div>
+              <h2>Your Information</h2>
+            </div>
+            <div class="form-step info-form-after" id="info-section">
+                <div class="step-number">2</div>
+                <h2>Your Information</h2>
+                <div>
+                  <form>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                      <option value="australia">Australia</option>
+                      <option value="canada">Canada</option>
+                      <option value="usa">USA</option>
+                    </select>
+                  
+                    <button type="button" class="back-button" onclick="goBack()">Back</button>
+                    <button class="submit-button">Submit</button>
+                  </form>
+                </div>
+            </div>
+          <div>
+            <div class="form-step confirmation-form-after" id="confirmation-section-after">
+              <div class="step-number">3</div>
+              <h2>Confirmation</h2>
+          </div>
+            <div class="form-step confirmation-form" id="confirmation-section" style="display: none;">
+              <div class="step-number">3</div>
+              <h2>Confirmation</h2>
+              <p id="confirmation-appointment"></p>
+              <p id="confirmation-date"></p>
+              <p id="confirmation-time"></p>
+              <p id="confirmation-name"></p>
+              <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
+              <button onclick="cancel()">Cancel</button>
+          </div>          
         </div>
     </div>
 
+    <div class="popup" id="timePopup" style="display: none;">
+        <h2>Select a Time</h2>
+        <button class="close-button" onclick="closePopup()">X</button>
+        <ul>
+            <!-- Time slots will be dynamically generated here -->
+        </ul>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            
-            hamburger.addEventListener('click', function() {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-        });
+        let selectedAppointment, selectedDate, selectedTime;
+
+function showPopup(service, duration) {
+    selectedAppointment = service;
+    const popup = document.getElementById('timePopup');
+    const timeSlots = generateTimeSlots(duration);
+    const ul = popup.querySelector('ul');
+    ul.innerHTML = '';
+
+    timeSlots.forEach(slot => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = slot;
+        button.onclick = function () {
+            selectTime(slot);
+        };
+        li.appendChild(button);
+        ul.appendChild(li);
+    });
+
+    popup.style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('timePopup').style.display = 'none';
+}
+
+function generateTimeSlots(duration) {
+    const days = ['Monday', 'Wednesday', 'Friday'];
+    const startTime = 13 * 60; // 1 pm in minutes
+    const endTime = 17 * 60; // 5 pm in minutes
+    const timeSlots = [];
+
+    days.forEach(day => {
+        for (let time = startTime; time < endTime; time += duration) {
+            timeSlots.push(`${day} ${formatTime(time)}`);
+        }
+    });
+
+    return timeSlots;
+}
+
+function formatTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = mins === 0 ? '00' : mins;
+    return `${formattedHour}:${formattedMinutes} ${period}`;
+}
+
+function selectTime(slot) {
+    closePopup();
+    selectedTime = slot;
+    selectedDate = slot.split(' ')[0]; // Extract the day as date
+    document.querySelector('.appointment-options').style.display = 'none';
+    document.querySelector('.info-form-after').style.display = 'block';
+    document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function goBack() {
+    document.querySelector('.info-form-after').style.display = 'none';
+    document.querySelector('.info-form').style.display = 'block';
+    document.querySelector('.appointment-options').style.display = 'flex';
+    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+}
+
+function goBackInfo() {
+    document.querySelector('.info-form-after').style.display = 'block';
+    document.querySelector('.info-form').style.display = 'none';
+    document.querySelector('.appointment-options').style.display = 'none';
+    document.getElementById('confirmation-section').style.display = 'none';
+    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+}
+
+
+function showConfirmation() {
+    const firstName = document.getElementById('fname').value;
+    const lastName = document.getElementById('lname').value;
+
+    document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
+    document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
+    document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
+    document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+
+    document.querySelector('.info-form-after').style.display = 'none';
+    document.querySelector('.info-form').style.display = 'block';
+    document.getElementById('confirmation-section').style.display = 'block';
+    document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.querySelector('.submit-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    showConfirmation();
+});
+
+function cancel() {
+    document.getElementById('confirmation-section').style.display = 'none';
+    document.querySelector('.appointment-options').style.display = 'flex';
+}
     </script>
 </body>
 </html>
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        background-image: url("{% static 'pages/background.png' %}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+.confirmation-form {
+    display: none;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-form p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.confirmation-form button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.confirmation-form button:hover {
+    background-color: #352D28;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #9C8B7E;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #352D28;
+}
+
+.info-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-button,
+.submit-button {
+  background-color: #9C8B7E;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-button:hover,
+.submit-button:hover {
+  background-color: #352D28;
+}
+
+
+body {
+    font-family: 'Sanchez', serif;
+    background-color: #D5D2CD;
+    color: #352D28;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #D5D2CD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #352D28;
+    font-size: 30px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.book-now {
+    background-color: #9C8B7E;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #352D28;
+}
+
+.intro {
+    background-image: url("{% static 'pages/classy.png' %}");
+    background-size: 98%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 690px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#services {
+    padding: 20px;
+    background-color: #D5D2CD;
+    text-align: center;
+}
+
+#services h2 {
+    text-align: left;
+    font-size: 50px;
+    color: #352D28;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.service-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.service-item {
+    width: 23%; 
+    margin-bottom: 20px;
+}
+
+.service-item img {
+    width: 98%;
+    height: 60%;
+}
+
+.service-item img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.booking-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    margin: 20px;
+}
+
+.booking-section {
+    text-align: left;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #d1cdc4;
+    margin: 10px;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0 0 20px 0;
+}
+
+.description {
+    font-size: 1.2em;
+}
+
+.form-step {
+    margin-bottom: 20px;
+}
+
+.step-number {
+    font-size: 2em;
+    background-color: #9C8B7E;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.appointment-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appointment {
+    text-align: center;
+    width: 30%;
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.appointment:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.book-button:hover {
+    background-color: #352D28;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.close-button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+}
+
+.close-button:hover {
+    background-color: #352D28;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+ul li button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+ul li button:hover {
+    background-color: #352D28;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    height: 4px;
+    width: 25px;
+    background-color: #352D28;
+    margin: 3px 0;
+    transition: 0.4s;
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        flex-direction: column;
         width: 100%;
-        height: 100%;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
         opacity: 0;
-        animation: fadeIn 2s ease-in forwards;
     }
 
-    @keyframes fadeIn {
-      to {
-          opacity: 1;
-      }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
     }
 
-  .header {
-      background-size: cover;
-      background-position: auto;
-      background-repeat: no-repeat;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-  }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+}
 
-  .logo {
-      margin-left: 20px;
-      animation: moveSnail 9s ease-in-out forwards;
-  }
+.appointment-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 
-  @keyframes moveSnail {
-      from {
-          transform: translateX(-120%);
-      }
-      to {
-          transform: translateX(0);
-      }
-  }
-    
-  .logo img {
-      height: 80px;
-      margin-left: 40px;
-      margin-top: 5px;
-  }
-
-  .nav-links {
-      margin-right: 20px;
-      display: flex;
-      margin-top: 30px;
-  }
-
-  .nav-links a {
-      color: #f3f4da;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 30px;
-      font-family: "Audiowide", sans-serif;
-  }
-
-  .nav-links a:nth-child(4) {
-        margin-right: 50px;
-  }
-
-  .nav-links a:hover {
-      text-decoration: underline;
-      color: #e8ffa8;
-  }
-
-  .content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 50px;
-      flex-wrap: wrap;
-  }
-
-  .section {
-      border-radius: 50%;
-      margin: 20px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .section .circle {
-      background-color: #e8ffa8;
-      border-radius: 50%;
-      width: 400px;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .section:hover .circle {
-      transform: translateY(-10px);
-      box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  .section img {
-      width: 75%;
-      height: auto;
-  }
-
-  .section h2 {
-      font-family: "Audiowide", sans-serif;
-      margin-top: 15px;
-      color: #f3f4da;
-      font-size: 50px;
-      font-weight: bold;
-      transition: text-decoration 0.3s ease;
-      text-align: center;
-  }
-
-  .section a {
-      text-decoration: none;
-  }
-
-  .section:hover h2 {
-      text-decoration: underline;
-      color: #e8ffa8;
-  }
-
-  .hamburger {
-      display: none;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      cursor: pointer;
-      width: 44px;
-      height: 33px;
-      z-index: 10;
-  }
-
-  .bar {
-      display: block;
-      width: 100%;
-      height: 3px;
-      margin: 6px 0;
-      background-color: white;
-      transition: all 0.4s ease;
-  }
-
-  .active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(48deg);
-  }
-
-  .active .bar:nth-child(2) {
-      opacity: 0;
-  }
-
-  .active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-48deg);
-  }
-
-  .nav-links.active {
-      display: flex;
-  }
-
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-      .nav-links {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          position: absolute;
-          top: 60px;
-          left: 0;
-          background-color: rgba(0, 0, 0, 0.9);
-          text-align: center;
-          z-index: 1;
-      }
-
-      .nav-links a {
-          margin: 10px 0;
-          font-size: 18px;
-          padding: 10px 0;
-      }
-
-      .hamburger {
-          display: block;
-      }
-
-      .logo img {
-          height: 60px;
-          margin-left: 20px;
-          margin-top: -20px;
-      }
-
-      .section .circle {
-          width: 200px;
-          height: 200px;
-      }
-
-      .section h2 {
-          font-size: 24px;
-      }
-
-      .nav-links a:nth-child(4) {
-        margin-right: 0;
-      }
-  }
-
-  @media (max-width: 480px) {
-      .nav-links a {
-          font-size: 16px;
-          /* margin: 0 5px; */
-      }
-
-      .logo img {
-          height: 50px;
-          margin-left: 10px;
-          margin-top: 5%;
-      }
-
-      .section .circle {
-          width: 150px;
-          height: 150px;
-      }
-
-      .section {
-          width: 50%;
-          margin-top: -5%;
-          padding: 10px 0;
-      }
-
-      .section h2 {
-          font-size: 20px;
-      }
-  }
+.info-form-after {
+    display: none;
+}
 </style>
