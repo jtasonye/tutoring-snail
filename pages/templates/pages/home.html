@@ -129,11 +129,9 @@
     </div>
 
     <div class="popup" id="timePopup" style="display: none;">
-        <h2>Select a Time</h2>
-        <button class="close-button" onclick="closePopup()">X</button>
-        <ul>
-            <!-- Time slots will be dynamically generated here -->
-        </ul>
+      <h2>Select a Time</h2>
+      <button class="close-button" onclick="closePopup()">X</button>
+      <div id="calendar"></div>
     </div>
 
     <script>
@@ -142,20 +140,10 @@
         function showPopup(service, duration) {
             selectedAppointment = service;
             const popup = document.getElementById('timePopup');
-            const timeSlots = generateTimeSlots(duration);
-            const ul = popup.querySelector('ul');
-            ul.innerHTML = '';
-
-            timeSlots.forEach(slot => {
-                const li = document.createElement('li');
-                const button = document.createElement('button');
-                button.textContent = slot;
-                button.onclick = function () {
-                    selectTime(slot);
-                };
-                li.appendChild(button);
-                ul.appendChild(li);
-            });
+            const calendar = generateCalendar(duration);
+            const calendarContainer = document.getElementById('calendar');
+            calendarContainer.innerHTML = '';
+            calendarContainer.appendChild(calendar);
 
             popup.style.display = 'block';
         }
@@ -164,17 +152,59 @@
             document.getElementById('timePopup').style.display = 'none';
         }
 
+        function generateCalendar(duration) {
+            const calendar = document.createElement('div');
+            const currentDate = new Date();
+            const days = getDaysOfWeek(currentDate);
+
+            days.forEach(day => {
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column';
+                
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.textContent = day.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' });
+                dayColumn.appendChild(dayLabel);
+                
+                const timeSlots = generateTimeSlots(duration);
+                timeSlots.forEach(slot => {
+                    const button = document.createElement('button');
+                    button.className = 'time-slot';
+                    button.textContent = slot;
+                    button.onclick = function () {
+                        selectTime(day, slot);
+                    };
+                    dayColumn.appendChild(button);
+                });
+                
+                calendar.appendChild(dayColumn);
+            });
+
+            return calendar;
+        }
+
+        function getDaysOfWeek(date) {
+            const days = [];
+            const dayOfWeek = date.getDay();
+            const startOfWeek = new Date(date);
+            startOfWeek.setDate(date.getDate() - dayOfWeek + 1); // Start from Monday
+
+            for (let i = 0; i < 5; i++) {
+                const day = new Date(startOfWeek);
+                day.setDate(startOfWeek.getDate() + i);
+                days.push(day);
+            }
+            return days;
+        }
+
         function generateTimeSlots(duration) {
-            const days = ['Monday', 'Wednesday', 'Friday'];
             const startTime = 13 * 60; // 1 pm in minutes
             const endTime = 17 * 60; // 5 pm in minutes
             const timeSlots = [];
 
-            days.forEach(day => {
-                for (let time = startTime; time < endTime; time += duration) {
-                    timeSlots.push(`${day} ${formatTime(time)}`);
-                }
-            });
+            for (let time = startTime; time < endTime; time += duration) {
+                timeSlots.push(formatTime(time));
+            }
 
             return timeSlots;
         }
@@ -188,13 +218,16 @@
             return `${formattedHour}:${formattedMinutes} ${period}`;
         }
 
-        function selectTime(slot) {
+        function selectTime(day, slot) {
             closePopup();
             selectedTime = slot;
-            selectedDate = slot.split(' ')[0]; // Extract the day as date
+            selectedDate = day.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' });
+
             document.querySelector('.appointment-options').style.display = 'none';
             document.querySelector('.info-form-after').style.display = 'block';
+            document.querySelector('.info-form').style.display = 'none';
             document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+    
         }
 
         function goBack() {
@@ -432,26 +465,52 @@
       background-color: #352D28;
   }
 
-  .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-  }
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .close-button {
-      background-color: #9C8B7E;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      float: right;
-  }
+.close-button {
+    background-color: #ff6600;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.day-column {
+    display: inline-block;
+    width: 100px;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.day-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.time-slot {
+    background-color: #ff6600;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+}
+
+.time-slot:hover {
+    background-color: #cc5200;
+}
 
   .close-button:hover {
       background-color: #352D28;
