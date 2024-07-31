@@ -117,12 +117,11 @@
                     </select>
 
                     <div id="disability-details" style="display: none;">
-                      <label for="disability-explanation">If yes, please explain further</label>
+                      <label for="disability-explanation" >If yes, please explain further</label>
                       <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
                     </div>
                     
                     <div id="comments">
-                      <label for="comments">If yes, please explain further</label>
                       <textarea id="comments" name="comments" placeholder="Anything else you would like us to know?"></textarea>
                     </div>
 
@@ -173,6 +172,7 @@
         function toggleDisabilityInput() {
             const disabilitySelect = document.getElementById('disabilities');
             const disabilityDetails = document.getElementById('disability-details');
+            const disabilityExplanation = document.getElementById('disability-explanation')
 
             if (disabilitySelect.value === 'yes') {
                 disabilityDetails.style.display = 'block';
