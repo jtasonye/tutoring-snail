@@ -121,9 +121,9 @@
                       <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
                     </div>
                     
-                    <div id="Comments">
-                      <label for="Comments">If yes, please explain further</label>
-                      <textarea id="Comments" name="Comments" placeholder="Anything else you would like us to know?"></textarea>
+                    <div id="comments">
+                      <label for="comments">If yes, please explain further</label>
+                      <textarea id="comments" name="comments" placeholder="Anything else you would like us to know?"></textarea>
                     </div>
 
                     <button type="button" class="back-button" onclick="goBack()">Back</button>
@@ -143,6 +143,13 @@
               <p id="confirmation-date"></p>
               <p id="confirmation-time"></p>
               <p id="confirmation-name"></p>
+              <p id="confirmation-email"></p>
+              <p id="confirmation-phone"></p>
+              <p id="confirmation-age"></p>
+              <p id="confirmation-grade"></p>
+              <p id="confirmation-disabilities"></p>
+              <p id="confirmation-disability"></p>
+              <p id="confirmation-comments"></p>
               <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
               <button onclick="cancel()">Cancel</button>
           </div>          
@@ -303,17 +310,32 @@
             document.querySelector('.info-form').style.display = 'none';
             document.querySelector('.appointment-options').style.display = 'none';
             document.getElementById('confirmation-section').style.display = 'none';
+            document.getElementById('confirmation-section-after').style.display = 'block';
             document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
         }
 
         function showConfirmation() {
             const firstName = document.getElementById('fname').value;
             const lastName = document.getElementById('lname').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
+            const grade = document.getElementById('grade').value;
+            const disabilities = document.getElementById('disabilities').value;
+            const disability = document.getElementById('disability-explanation').value;
+            const comments = document.getElementById('comments').value;
 
             document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
             document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
             document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
             document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+            document.getElementById('confirmation-email').textContent = `Email: ${email}`;
+            document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
+            document.getElementById('confirmation-age').textContent = `Age: ${age}`;
+            document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
+            document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
+            document.getElementById('confirmation-disability').value = `Disability: ${disability}`;
+            document.getElementById('confirmation-comments').value = `Comments: ${comments}`;
 
             document.querySelector('.info-form-after').style.display = 'none';
             document.querySelector('.info-form').style.display = 'block';
@@ -329,6 +351,7 @@
 
         function cancel() {
             document.getElementById('confirmation-section').style.display = 'none';
+            document.getElementById('confirmation-section-after').style.display = 'block';
             document.querySelector('.appointment-options').style.display = 'flex';
         }
 
