@@ -1,8 +1,10 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Sanchez', serif;
+  background-color: #D5D2CD;
+  color: #352D28;
   margin: 0;
   padding: 0;
-  background:#358C5B;
+  box-sizing: border-box;
 }
 
 .headshots{
@@ -11,68 +13,53 @@ body {
 }
 
 .header {
-  background-color: #8C5B35;
+  background-color: #D5D2CD;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
 .logo {
-  animation: moveSnail 3s ease-in forwards;
-  margin-left: 2%;
+  font-size: 50px;
+  font-weight: bold;
 }
 
-@keyframes moveSnail {
-  from {
-      transform: translateX(-120%);
-  }
-  to {
-      transform: translateX(-30%);
-  }
-}
-
-.logo img {
-  height: 80px;
-}
-
-.nav-links {
-  margin-right: 20px;
+nav {
   display: flex;
-  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
-.nav-links a {
-  color: #f3f4da;
+nav a {
+  margin: 0 10px;
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 28px;
-  font-family: "Audiowide", sans-serif;
+  color: #352D28;
+  font-size: 30px;
 }
 
-.nav-links a:hover {
+nav a:hover {
   text-decoration: underline;
-  color: #e8ffa8;
 }
 
 .content {
-  max-width: 800px;
+  max-width: 85%;
   margin: 50px auto;
-  background: #ffffff;
+  background: #d1cdc4;
   padding: 20px;
+  border: solid #9C8B7E;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .content h1 {
-  color: #00509D;
+  color: #009d34;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .content p {
-  color: #333;
-  font-size: 18px;
+  color: black;
+  font-size: 22px;
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -84,6 +71,7 @@ body {
 
 .content ul li {
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .content img {
@@ -122,12 +110,12 @@ body {
 
 .container h2 {
   margin: 10px 0;
-  color: #00509D;
+  color: #009d34;
 }
 
 .container p.title {
-  color: grey;
-  font-size: 16px;
+  color: black;
+  font-size: 20px;
 }
 
 .container p {
@@ -141,7 +129,7 @@ body {
   display: inline-block;
   padding: 8px;
   color: white;
-  background-color: #00509D;
+  background-color: #009d34;
   text-align: center;
   cursor: pointer;
   border-radius: 5px;
@@ -167,14 +155,14 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   margin: 40px auto;
-  border: 5px solid #00509D;
+  border: 5px solid #009d34;
 }
 
 form h2 {
   margin-bottom: 25px;
   font-size: 27px;
   text-align: center;
-  color: #00509D;
+  color: #009d34;
 }
 
 .form-group {
@@ -189,7 +177,7 @@ form h2 {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #00509D;
+  color: #009d34;
 }
 
 .form-group input,

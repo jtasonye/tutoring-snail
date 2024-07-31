@@ -132,30 +132,38 @@
       <h2>Select a Time</h2>
       <button class="close-button" onclick="closePopup()">X</button>
       <div id="calendar"></div>
+      <div class="calendar-navigation">
+        <button onclick="previousWeek(selectedDuration)">Previous Week</button>
+        <button onclick="nextWeek(selectedDuration)">Next Week</button>
     </div>
+    </div>    
 
     <script>
-        let selectedAppointment, selectedDate, selectedTime;
+        let selectedAppointment, selectedDate, selectedTime, selectedDuration;
+        let currentWeekStartDate = new Date();
 
         function showPopup(service, duration) {
             selectedAppointment = service;
-            const popup = document.getElementById('timePopup');
-            const calendar = generateCalendar(duration);
-            const calendarContainer = document.getElementById('calendar');
-            calendarContainer.innerHTML = '';
-            calendarContainer.appendChild(calendar);
-
-            popup.style.display = 'block';
+            selectedDuration = duration;
+            currentWeekStartDate = new Date();
+            updateCalendar(duration);
+            document.getElementById('timePopup').style.display = 'block';
         }
 
         function closePopup() {
             document.getElementById('timePopup').style.display = 'none';
         }
 
-        function generateCalendar(duration) {
+        function updateCalendar(duration) {
+            const calendar = generateCalendar(duration, currentWeekStartDate);
+            const calendarContainer = document.getElementById('calendar');
+            calendarContainer.innerHTML = '';
+            calendarContainer.appendChild(calendar);
+        }
+
+        function generateCalendar(duration, startDate) {
             const calendar = document.createElement('div');
-            const currentDate = new Date();
-            const days = getDaysOfWeek(currentDate);
+            const days = getDaysOfWeek(startDate);
 
             days.forEach(day => {
                 const dayColumn = document.createElement('div');
@@ -183,19 +191,21 @@
             return calendar;
         }
 
-        function getDaysOfWeek(date) {
-            const days = [];
-            const dayOfWeek = date.getDay();
-            const startOfWeek = new Date(date);
-            startOfWeek.setDate(date.getDate() - dayOfWeek + 1); // Start from Monday
 
-            for (let i = 0; i < 5; i++) {
-                const day = new Date(startOfWeek);
-                day.setDate(startOfWeek.getDate() + i);
-                days.push(day);
-            }
-            return days;
-        }
+          function getDaysOfWeek(startDate) {
+          const days = [];
+          const dayOfWeek = startDate.getDay();
+          const startOfWeek = new Date(startDate);
+          startOfWeek.setDate(startDate.getDate() - dayOfWeek + 1); // Start from Monday
+
+          for (let i = 0; i < 5; i++) {
+              const day = new Date(startOfWeek);
+              day.setDate(startOfWeek.getDate() + i);
+              days.push(day);
+          }
+          return days;
+      }
+        
 
         function generateTimeSlots(duration) {
             const startTime = 13 * 60; // 1 pm in minutes
@@ -227,7 +237,16 @@
             document.querySelector('.info-form-after').style.display = 'block';
             document.querySelector('.info-form').style.display = 'none';
             document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
-    
+        }
+
+        function previousWeek(duration) {
+            currentWeekStartDate.setDate(currentWeekStartDate.getDate() - 7);
+            updateCalendar(duration);
+        }
+
+        function nextWeek(duration) {
+            currentWeekStartDate.setDate(currentWeekStartDate.getDate() + 7);
+            updateCalendar(duration);
         }
 
         function goBack() {
@@ -244,7 +263,6 @@
             document.getElementById('confirmation-section').style.display = 'none';
             document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
         }
-
 
         function showConfirmation() {
             const firstName = document.getElementById('fname').value;
@@ -274,13 +292,12 @@
         document.querySelector('.book-now').addEventListener('click', function (e) {
             e.preventDefault();
             document.getElementById('booking-container').scrollIntoView({ behavior: 'smooth' });
-          });
+        });
 
-          
         document.querySelector('.service_button').addEventListener('click', function (e) {
             e.preventDefault();
             document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
-          });
+        });
     </script>
 </body>
 </html>
@@ -477,7 +494,7 @@
 }
 
 .close-button {
-    background-color: #9C8B7E;
+    background-color: #b81111;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -498,7 +515,7 @@
 }
 
 .time-slot {
-    background-color: #9C8B7E;
+    background-color: #31873e;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -509,11 +526,11 @@
 }
 
 .time-slot:hover {
-    background-color: #6b482d;
+    background-color: #40d11f;
 }
 
   .close-button:hover {
-      background-color: #6b482d;
+      background-color: #fa0808;
   }
 
   ul {
@@ -624,6 +641,26 @@
   .submit-button:hover {
     background-color: #352D28;
   }
+
+  .calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.calendar-navigation button {
+    background-color: #1d241e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.calendar-navigation button:hover {
+    background-color: #31873e;
+}
+
 
   @media (max-width: 768px) {
       nav {
