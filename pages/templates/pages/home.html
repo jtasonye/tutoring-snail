@@ -93,18 +93,39 @@
                 <div>
                   <form>
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
                 
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-                
-                    <label for="country">Country</label>
-                    <select id="country" name="country">
-                      <option value="australia">Australia</option>
-                      <option value="canada">Canada</option>
-                      <option value="usa">USA</option>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..." required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email..." >
+
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your phone number..." required>
+
+                    <label for="age">Student Age</label>
+                    <input type="number" id="age" name="age" placeholder="Age of student...">
+
+                    <label for="grade">Student Grade</label>
+                    <input type="number" id="grade" name="grade" placeholder="Grade year of student...">
+
+                    <label for="disabilities">Does the student have any learning disabilities?</label>
+                    <select id="disabilities" name="disabilities" onchange="toggleDisabilityInput()">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
                     </select>
-                  
+
+                    <div id="disability-details" style="display: none;">
+                      <label for="disability-explanation">If yes, please explain further</label>
+                      <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
+                    </div>
+                    
+                    <div id="Comments">
+                      <label for="Comments">If yes, please explain further</label>
+                      <textarea id="Comments" name="Comments" placeholder="Anything else you would like us to know?"></textarea>
+                    </div>
+
                     <button type="button" class="back-button" onclick="goBack()">Back</button>
                     <button class="submit-button">Submit</button>
                   </form>
@@ -142,6 +163,27 @@
         let selectedAppointment, selectedDate, selectedTime, selectedDuration;
         let currentWeekStartDate = new Date();
 
+        function toggleDisabilityInput() {
+            const disabilitySelect = document.getElementById('disabilities');
+            const disabilityDetails = document.getElementById('disability-details');
+
+            if (disabilitySelect.value === 'yes') {
+                disabilityDetails.style.display = 'block';
+            } else {
+                disabilityDetails.style.display = 'none';
+            }
+        }
+        document.getElementById('phone').addEventListener('input', function (e) {
+            let input = e.target.value;
+            input = input.replace(/\D/g, ''); // Remove all non-digit characters
+            if (input.length > 3 && input.length <= 6) {
+                input = `(${input.slice(0, 3)})-${input.slice(3)}`;
+            } else if (input.length > 6) {
+                input = `(${input.slice(0, 3)})-${input.slice(3, 6)}-${input.slice(6, 10)}`;
+            }
+            e.target.value = input;
+        });
+    
         function showPopup(service, duration) {
             selectedAppointment = service;
             selectedDuration = duration;
@@ -276,6 +318,7 @@
             document.querySelector('.info-form-after').style.display = 'none';
             document.querySelector('.info-form').style.display = 'block';
             document.getElementById('confirmation-section').style.display = 'block';
+            document.getElementById('confirmation-section-after').style.display = 'none';
             document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -596,8 +639,19 @@
       background-color: #352D28;
   }
 
-  input[type=text], select {
+  input, select, label {
     width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    width: 100%;
+    height: auto;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;

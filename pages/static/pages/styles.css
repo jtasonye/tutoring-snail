@@ -113,31 +113,9 @@ nav a:hover {
   color: #009d34;
 }
 
-.container p.title {
-  color: black;
-  font-size: 20px;
-}
-
 .container p {
   margin: 10px 0;
   color: #333;
-}
-
-.button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #009d34;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.button:hover {
-  background-color: #003f73;
 }
 
 @media screen and (max-width: 431px) {
@@ -145,67 +123,4 @@ nav a:hover {
     width: 100%;
     display: block;
   }
-}
-
-
-.form-container {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin: 40px auto;
-  border: 5px solid #009d34;
-}
-
-form h2 {
-  margin-bottom: 25px;
-  font-size: 27px;
-  text-align: center;
-  color: #009d34;
-}
-
-.form-group {
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #009d34;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: calc(100% - 20px);
-  padding: 12px;
-  border: 2px solid #00509D;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-button[type="submit"] {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  background-color: #00509D;
-  color: #ffeb3b;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #3700b3;
 }
