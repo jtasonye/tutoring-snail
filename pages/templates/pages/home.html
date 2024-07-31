@@ -11,12 +11,12 @@
     <header>
         <div class="logo">The Tutoring Snail</div>
         <nav class="nav-links">
-            <a href="../services">Services</a>
+            <a href="#services" class="service_button">Services</a>
             <a href="../aboutUs">About</a>
             <a href="#contact">Contact</a>
-            <a href="../bookUs">
+            <a href="#booking-container">
               <button class="book-now">Book Now</button>
-          </a>
+            </a>
         </nav>
 
         <div class="hamburger" id="hamburger">
@@ -54,11 +54,11 @@
         </div>
     </section>
     
-    <div class="booking-container">
+    <div id="booking-container">
         <div class="booking-section">
-            <h1>Book an appointment</h1>
+            <h1>Book a Session</h1>
             <p class="description">
-                Welcome your clients to the business and your mission statement. Give a brief description about the scheduling process and any details to know about beforehand.
+                Explain the different prices, packages, sessions you can book and what comes with each.
             </p>
         </div>
         <div class="form-section" id="form-section">
@@ -93,18 +93,39 @@
                 <div>
                   <form>
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
                 
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-                
-                    <label for="country">Country</label>
-                    <select id="country" name="country">
-                      <option value="australia">Australia</option>
-                      <option value="canada">Canada</option>
-                      <option value="usa">USA</option>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..." required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email..." >
+
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your phone number..." required>
+
+                    <label for="age">Student Age</label>
+                    <input type="number" id="age" name="age" placeholder="Age of student...">
+
+                    <label for="grade">Student Grade</label>
+                    <input type="number" id="grade" name="grade" placeholder="Grade year of student...">
+
+                    <label for="disabilities">Does the student have any learning disabilities?</label>
+                    <select id="disabilities" name="disabilities" onchange="toggleDisabilityInput()">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
                     </select>
-                  
+
+                    <div id="disability-details" style="display: none;">
+                      <label for="disability-explanation">If yes, please explain further</label>
+                      <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
+                    </div>
+                    
+                    <div id="comments">
+                      <label for="comments">If yes, please explain further</label>
+                      <textarea id="comments" name="comments" placeholder="Anything else you would like us to know?"></textarea>
+                    </div>
+
                     <button type="button" class="back-button" onclick="goBack()">Back</button>
                     <button class="submit-button">Submit</button>
                   </form>
@@ -122,6 +143,13 @@
               <p id="confirmation-date"></p>
               <p id="confirmation-time"></p>
               <p id="confirmation-name"></p>
+              <p id="confirmation-email"></p>
+              <p id="confirmation-phone"></p>
+              <p id="confirmation-age"></p>
+              <p id="confirmation-grade"></p>
+              <p id="confirmation-disabilities"></p>
+              <p id="confirmation-disability"></p>
+              <p id="confirmation-comments"></p>
               <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
               <button onclick="cancel()">Cancel</button>
           </div>          
@@ -129,371 +157,396 @@
     </div>
 
     <div class="popup" id="timePopup" style="display: none;">
-        <h2>Select a Time</h2>
-        <button class="close-button" onclick="closePopup()">X</button>
-        <ul>
-            <!-- Time slots will be dynamically generated here -->
-        </ul>
+      <h2>Select a Time</h2>
+      <button class="close-button" onclick="closePopup()">X</button>
+      <div id="calendar"></div>
+      <div class="calendar-navigation">
+        <button onclick="previousWeek(selectedDuration)">Previous Week</button>
+        <button onclick="nextWeek(selectedDuration)">Next Week</button>
     </div>
+    </div>    
 
     <script>
-        let selectedAppointment, selectedDate, selectedTime;
+        let selectedAppointment, selectedDate, selectedTime, selectedDuration;
+        let currentWeekStartDate = new Date();
 
-function showPopup(service, duration) {
-    selectedAppointment = service;
-    const popup = document.getElementById('timePopup');
-    const timeSlots = generateTimeSlots(duration);
-    const ul = popup.querySelector('ul');
-    ul.innerHTML = '';
+        function toggleDisabilityInput() {
+            const disabilitySelect = document.getElementById('disabilities');
+            const disabilityDetails = document.getElementById('disability-details');
 
-    timeSlots.forEach(slot => {
-        const li = document.createElement('li');
-        const button = document.createElement('button');
-        button.textContent = slot;
-        button.onclick = function () {
-            selectTime(slot);
-        };
-        li.appendChild(button);
-        ul.appendChild(li);
-    });
-
-    popup.style.display = 'block';
-}
-
-function closePopup() {
-    document.getElementById('timePopup').style.display = 'none';
-}
-
-function generateTimeSlots(duration) {
-    const days = ['Monday', 'Wednesday', 'Friday'];
-    const startTime = 13 * 60; // 1 pm in minutes
-    const endTime = 17 * 60; // 5 pm in minutes
-    const timeSlots = [];
-
-    days.forEach(day => {
-        for (let time = startTime; time < endTime; time += duration) {
-            timeSlots.push(`${day} ${formatTime(time)}`);
+            if (disabilitySelect.value === 'yes') {
+                disabilityDetails.style.display = 'block';
+            } else {
+                disabilityDetails.style.display = 'none';
+            }
         }
-    });
+        document.getElementById('phone').addEventListener('input', function (e) {
+            let input = e.target.value;
+            input = input.replace(/\D/g, ''); // Remove all non-digit characters
+            if (input.length > 3 && input.length <= 6) {
+                input = `(${input.slice(0, 3)})-${input.slice(3)}`;
+            } else if (input.length > 6) {
+                input = `(${input.slice(0, 3)})-${input.slice(3, 6)}-${input.slice(6, 10)}`;
+            }
+            e.target.value = input;
+        });
+    
+        function showPopup(service, duration) {
+            selectedAppointment = service;
+            selectedDuration = duration;
+            currentWeekStartDate = new Date();
+            updateCalendar(duration);
+            document.getElementById('timePopup').style.display = 'block';
+        }
 
-    return timeSlots;
-}
+        function closePopup() {
+            document.getElementById('timePopup').style.display = 'none';
+        }
 
-function formatTime(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
-    const formattedMinutes = mins === 0 ? '00' : mins;
-    return `${formattedHour}:${formattedMinutes} ${period}`;
-}
+        function updateCalendar(duration) {
+            const calendar = generateCalendar(duration, currentWeekStartDate);
+            const calendarContainer = document.getElementById('calendar');
+            calendarContainer.innerHTML = '';
+            calendarContainer.appendChild(calendar);
+        }
 
-function selectTime(slot) {
-    closePopup();
-    selectedTime = slot;
-    selectedDate = slot.split(' ')[0]; // Extract the day as date
-    document.querySelector('.appointment-options').style.display = 'none';
-    document.querySelector('.info-form-after').style.display = 'block';
-    document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
-}
+        function generateCalendar(duration, startDate) {
+            const calendar = document.createElement('div');
+            const days = getDaysOfWeek(startDate);
 
-function goBack() {
-    document.querySelector('.info-form-after').style.display = 'none';
-    document.querySelector('.info-form').style.display = 'block';
-    document.querySelector('.appointment-options').style.display = 'flex';
-    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
-}
+            days.forEach(day => {
+                const dayColumn = document.createElement('div');
+                dayColumn.className = 'day-column';
+                
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.textContent = day.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' });
+                dayColumn.appendChild(dayLabel);
+                
+                const timeSlots = generateTimeSlots(duration);
+                timeSlots.forEach(slot => {
+                    const button = document.createElement('button');
+                    button.className = 'time-slot';
+                    button.textContent = slot;
+                    button.onclick = function () {
+                        selectTime(day, slot);
+                    };
+                    dayColumn.appendChild(button);
+                });
+                
+                calendar.appendChild(dayColumn);
+            });
 
-function goBackInfo() {
-    document.querySelector('.info-form-after').style.display = 'block';
-    document.querySelector('.info-form').style.display = 'none';
-    document.querySelector('.appointment-options').style.display = 'none';
-    document.getElementById('confirmation-section').style.display = 'none';
-    document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
-}
+            return calendar;
+        }
 
 
-function showConfirmation() {
-    const firstName = document.getElementById('fname').value;
-    const lastName = document.getElementById('lname').value;
+          function getDaysOfWeek(startDate) {
+          const days = [];
+          const dayOfWeek = startDate.getDay();
+          const startOfWeek = new Date(startDate);
+          startOfWeek.setDate(startDate.getDate() - dayOfWeek + 1); // Start from Monday
 
-    document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
-    document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
-    document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
-    document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+          for (let i = 0; i < 5; i++) {
+              const day = new Date(startOfWeek);
+              day.setDate(startOfWeek.getDate() + i);
+              days.push(day);
+          }
+          return days;
+      }
+        
 
-    document.querySelector('.info-form-after').style.display = 'none';
-    document.querySelector('.info-form').style.display = 'block';
-    document.getElementById('confirmation-section').style.display = 'block';
-    document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
-}
+        function generateTimeSlots(duration) {
+            const startTime = 13 * 60; // 1 pm in minutes
+            const endTime = 17 * 60; // 5 pm in minutes
+            const timeSlots = [];
 
-document.querySelector('.submit-button').addEventListener('click', function (e) {
-    e.preventDefault();
-    showConfirmation();
-});
+            for (let time = startTime; time < endTime; time += duration) {
+                timeSlots.push(formatTime(time));
+            }
 
-function cancel() {
-    document.getElementById('confirmation-section').style.display = 'none';
-    document.querySelector('.appointment-options').style.display = 'flex';
-}
+            return timeSlots;
+        }
+
+        function formatTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
+            const formattedMinutes = mins === 0 ? '00' : mins;
+            return `${formattedHour}:${formattedMinutes} ${period}`;
+        }
+
+        function selectTime(day, slot) {
+            closePopup();
+            selectedTime = slot;
+            selectedDate = day.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short' });
+
+            document.querySelector('.appointment-options').style.display = 'none';
+            document.querySelector('.info-form-after').style.display = 'block';
+            document.querySelector('.info-form').style.display = 'none';
+            document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function previousWeek(duration) {
+            currentWeekStartDate.setDate(currentWeekStartDate.getDate() - 7);
+            updateCalendar(duration);
+        }
+
+        function nextWeek(duration) {
+            currentWeekStartDate.setDate(currentWeekStartDate.getDate() + 7);
+            updateCalendar(duration);
+        }
+
+        function goBack() {
+            document.querySelector('.info-form-after').style.display = 'none';
+            document.querySelector('.info-form').style.display = 'block';
+            document.querySelector('.appointment-options').style.display = 'flex';
+            document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goBackInfo() {
+            document.querySelector('.info-form-after').style.display = 'block';
+            document.querySelector('.info-form').style.display = 'none';
+            document.querySelector('.appointment-options').style.display = 'none';
+            document.getElementById('confirmation-section').style.display = 'none';
+            document.getElementById('confirmation-section-after').style.display = 'block';
+            document.querySelector('.appointment-options').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showConfirmation() {
+            const firstName = document.getElementById('fname').value;
+            const lastName = document.getElementById('lname').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
+            const grade = document.getElementById('grade').value;
+            const disabilities = document.getElementById('disabilities').value;
+            const disability = document.getElementById('disability-explanation').value;
+            const comments = document.getElementById('comments').value;
+
+            document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
+            document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
+            document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
+            document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+            document.getElementById('confirmation-email').textContent = `Email: ${email}`;
+            document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
+            document.getElementById('confirmation-age').textContent = `Age: ${age}`;
+            document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
+            document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
+            document.getElementById('confirmation-disability').value = `Disability: ${disability}`;
+            document.getElementById('confirmation-comments').value = `Comments: ${comments}`;
+
+            document.querySelector('.info-form-after').style.display = 'none';
+            document.querySelector('.info-form').style.display = 'block';
+            document.getElementById('confirmation-section').style.display = 'block';
+            document.getElementById('confirmation-section-after').style.display = 'none';
+            document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.querySelector('.submit-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            showConfirmation();
+        });
+
+        function cancel() {
+            document.getElementById('confirmation-section').style.display = 'none';
+            document.getElementById('confirmation-section-after').style.display = 'block';
+            document.querySelector('.appointment-options').style.display = 'flex';
+        }
+
+        document.querySelector('.book-now').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('booking-container').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.querySelector('.service_button').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
 
 <style>
-.confirmation-form {
-    display: none;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  body {
+      font-family: 'Sanchez', serif;
+      background-color: #D5D2CD;
+      color: #352D28;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
 
-.confirmation-form p {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
+  header {
+      background-color: #D5D2CD;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      flex-wrap: wrap;
+  }
 
-.confirmation-form button {
-    background-color: #9C8B7E;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-right: 10px;
-}
+  .logo {
+      font-size: 50px;
+      font-weight: bold;
+  }
 
-.confirmation-form button:hover {
-    background-color: #352D28;
-}
+  nav {
+      display: flex;
+      flex-wrap: wrap;
+  }
 
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+  nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #352D28;
+      font-size: 30px;
+  }
 
-input[type=submit] {
-  width: 100%;
-  background-color: #9C8B7E;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+  nav a:hover {
+      text-decoration: underline;
+  }
 
-input[type=submit]:hover {
-  background-color: #352D28;
-}
+  .book-now {
+      background-color: #9C8B7E;
+      padding: 0 20px;
+      border-radius: 50px;
+      border: solid black;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+  }
 
-.info-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
+  .book-now:hover {
+      background-color: #352D28;
+  }
 
-.back-button,
-.submit-button {
-  background-color: #9C8B7E;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-}
+  .intro {
+      background-image: url("{% static 'pages/classy.png' %}");
+      background-size: 98%;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 690px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-.back-button:hover,
-.submit-button:hover {
-  background-color: #352D28;
-}
+  #services {
+      padding: 20px;
+      background-color: #D5D2CD;
+      text-align: center;
+  }
 
+  #services h2 {
+      text-align: left;
+      font-size: 50px;
+      color: #352D28;
+      font-weight: bold;
+      margin-bottom: 20px;
+  }
 
-body {
-    font-family: 'Sanchez', serif;
-    background-color: #D5D2CD;
-    color: #352D28;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  .service-items {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  }
 
-header {
-    background-color: #D5D2CD;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    flex-wrap: wrap;
-}
+  .service-item {
+      width: 23%; 
+      margin-bottom: 20px;
+  }
 
-.logo {
-    font-size: 50px;
-    font-weight: bold;
-}
+  .service-item img {
+      width: 98%;
+      height: 60%;
+  }
 
-nav {
-    display: flex;
-    flex-wrap: wrap;
-}
+  .service-item img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  }
 
-nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #352D28;
-    font-size: 30px;
-}
+  #booking-container {
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+      margin: 20px;
+  }
 
-nav a:hover {
-    text-decoration: underline;
-}
+  .booking-section {
+      text-align: left;
+      flex: 1;
+      margin-bottom: 20px;
+  }
 
-.book-now {
-    background-color: #9C8B7E;
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: none;
-    color: #fff;
-    font-size: 30px;
-    cursor: pointer;
-}
+  .form-section {
+      flex: 1;
+      padding: 20px;
+      background-color: #d1cdc4;
+      margin: 10px;
+  }
 
-.book-now:hover {
-    background-color: #352D28;
-}
+  h1 {
+      font-size: 3em;
+      margin: 0 0 20px 0;
+  }
 
-.intro {
-    background-image: url("{% static 'pages/classy.png' %}");
-    background-size: 98%;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 690px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  .description {
+      font-size: 1.2em;
+  }
 
-#services {
-    padding: 20px;
-    background-color: #D5D2CD;
-    text-align: center;
-}
+  .form-step {
+      margin-bottom: 20px;
+  }
 
-#services h2 {
-    text-align: left;
-    font-size: 50px;
-    color: #352D28;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+  .step-number {
+      font-size: 2em;
+      background-color: #9C8B7E;
+      color: white;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 10px;
+  }
 
-.service-items {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
+  .appointment-options {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  }
 
-.service-item {
-    width: 23%; 
-    margin-bottom: 20px;
-}
+  .appointment {
+      text-align: center;
+      width: 30%;
+      background-color: #fff;
+      margin: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+  }
 
-.service-item img {
-    width: 98%;
-    height: 60%;
-}
+  .appointment:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
 
-.service-item img:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-}
+  .book-button {
+      background-color: #9C8B7E;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+  }
 
-.booking-container {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    margin: 20px;
-}
-
-.booking-section {
-    text-align: left;
-    flex: 1;
-    margin-bottom: 20px;
-}
-
-.form-section {
-    flex: 1;
-    padding: 20px;
-    background-color: #d1cdc4;
-    margin: 10px;
-}
-
-h1 {
-    font-size: 3em;
-    margin: 0 0 20px 0;
-}
-
-.description {
-    font-size: 1.2em;
-}
-
-.form-step {
-    margin-bottom: 20px;
-}
-
-.step-number {
-    font-size: 2em;
-    background-color: #9C8B7E;
-    color: white;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.appointment-options {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.appointment {
-    text-align: center;
-    width: 30%;
-    background-color: #fff;
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.appointment:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-}
-
-.book-button {
-    background-color: #9C8B7E;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.book-button:hover {
-    background-color: #352D28;
-}
+  .book-button:hover {
+      background-color: #352D28;
+  }
 
 .popup {
     position: fixed;
@@ -502,35 +555,178 @@ h1 {
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .close-button {
-    background-color: #9C8B7E;
-    color: white;
+    background-color: #b81111;
     border: none;
-    padding: 10px;
+    color: white;
+    padding: 5px 10px;
     cursor: pointer;
-    border-radius: 5px;
     float: right;
 }
 
-.close-button:hover {
-    background-color: #352D28;
+.day-column {
+    display: inline-block;
+    width: 100px;
+    margin: 10px;
+    vertical-align: top;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.day-label {
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-ul li {
-    margin: 10px 0;
+.time-slot {
+    background-color: #31873e;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
 }
 
-ul li button {
+.time-slot:hover {
+    background-color: #40d11f;
+}
+
+  .close-button:hover {
+      background-color: #fa0808;
+  }
+
+  ul {
+      list-style-type: none;
+      padding: 0;
+  }
+
+  ul li {
+      margin: 10px 0;
+  }
+
+  ul li button {
+      background-color: #9C8B7E;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+  }
+
+  ul li button:hover {
+      background-color: #352D28;
+  }
+
+  .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+  }
+
+  .bar {
+      height: 4px;
+      width: 25px;
+      background-color: #352D28;
+      margin: 3px 0;
+      transition: 0.4s;
+  }
+
+  .confirmation-form {
+      display: none;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .confirmation-form p {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+  }
+
+  .confirmation-form button {
+      background-color: #9C8B7E;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-right: 10px;
+  }
+
+  .confirmation-form button:hover {
+      background-color: #352D28;
+  }
+
+  input, select, label {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    width: 100%;
+    height: auto;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
     background-color: #9C8B7E;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #352D28;
+  }
+
+  .info-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .back-button,
+  .submit-button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .back-button:hover,
+  .submit-button:hover {
+    background-color: #352D28;
+  }
+
+  .calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.calendar-navigation button {
+    background-color: #1d241e;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -538,59 +734,46 @@ ul li button {
     border-radius: 5px;
 }
 
-ul li button:hover {
-    background-color: #352D28;
+.calendar-navigation button:hover {
+    background-color: #31873e;
 }
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
 
-.bar {
-    height: 4px;
-    width: 25px;
-    background-color: #352D28;
-    margin: 3px 0;
-    transition: 0.4s;
-}
+  @media (max-width: 768px) {
+      nav {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+      }
 
-@media (max-width: 768px) {
-    nav {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-    }
+      nav.active {
+          display: flex;
+      }
 
-    nav.active {
-        display: flex;
-    }
+      .hamburger {
+          display: flex;
+      }
 
-    .hamburger {
-        display: flex;
-    }
+      .hamburger.active .bar:nth-child(2) {
+          opacity: 0;
+      }
 
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
+      .hamburger.active .bar:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+      }
 
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
+      .hamburger.active .bar:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+      }
+  }
 
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-}
+  .appointment-options {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  }
 
-.appointment-options {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.info-form-after {
-    display: none;
-}
+  .info-form-after {
+      display: none;
+  }
 </style>
