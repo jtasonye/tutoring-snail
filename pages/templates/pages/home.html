@@ -56,9 +56,47 @@
     
     <div id="booking-container">
         <div class="booking-section">
-            <h1>Book a Session</h1>
-            <p class="description">
-                Explain the different prices, packages, sessions you can book and what comes with each.
+            <div class="description">
+              <h1>Book a Session</h1>
+                <div class="highlight">
+                    <p>If this is your first time booking a tutoring session with us, we highly recommend starting with our <strong>free 30-minute consultation.</strong>
+                       This session allows us to get to know you and your child better, understand their learning style, 
+                       and tailor our tutoring lessons to meet their needs. During the consultation, we'll also provide a 
+                       demo of what tutoring sessions will be like if you decide to proceed with us. While this consultation 
+                       is not required to schedule a tutoring session, we believe it's a valuable opportunity for us to connect 
+                       and for you to see how we can best support your child.</p>
+                </div>
+                <div class="session">
+                    <h2>Session Length Options</h2>
+                    <p><strong>1-Hour Session:</strong> 
+                        Ideal for covering a focused topic or reviewing specific material. 
+                        This session allows us to dive into key concepts and provide examples, 
+                        but it may not cover as much ground as a longer session.</p>
+                    <p><strong>2-Hour Session:</strong> Perfect for a more in-depth exploration of topics. 
+                        With more time, we can cover a broader range of material, go over additional examples, and provide a 
+                        more comprehensive review.</p> 
+                    <p><strong>The quality of both session lengths is the same; the difference is in how much
+                        we can cover during the session.</strong></p>
+                </div>
+        
+                <p class="note"><i>We look forward to the opportunity to work with you and your child. 
+                        Feel free to reach out if you have any questions or if you're ready to book your consultation!</i></p>
+                  <br>
+                <div class="Booking-Confirmation">
+                  <h2>Booking Confirmation</h2>
+                  <p> Once you submit your booking request, we will review it and reply to the email address 
+                      you provided within 1-3 business days. Please check your inbox (and spam/junk folder, just in case) 
+                      for our response. If you have any urgent questions or need immediate assistance, feel free to 
+                      contact us at <strong>ADD OUR EMAIL HERE.</strong>
+                      <br> <br>
+                      Thank you for your patience!</p>
+                </div>
+                  <br>
+                <div class="Payment">
+                  <h2>Payment Details</h2>
+                  <p> We accept payments through Venmo, and PayPal as of now. More Payement methods to be available soon!</p>
+                </div>
+              </div>
             </p>
         </div>
         <div class="form-section" id="form-section">
@@ -485,7 +523,8 @@
       flex: 1;
       padding: 20px;
       background-color: #d1cdc4;
-      margin: 10px;
+      margin-left: 10px;
+      border-radius: 8px;
   }
 
   h1 {
@@ -495,6 +534,22 @@
 
   .description {
       font-size: 1.2em;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .highlight {
+    background-color: rgba(156, 139, 126, 0.5); /* Adjusted for opacity */
+    border-left: 4px solid #352D28;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .highlight p {
+      color: black; 
   }
 
   .form-step {
