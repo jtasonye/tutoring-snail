@@ -1,78 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome!</title>
+    <title> Welcome! </title>
+
 </head>
+
 <body>
   {% load static %}
-    <video autoplay muted playsinline class="video-background" id="backgroundVideo">
-        <source src="{% static 'pages/Chalkboard_Effect.mp4' %}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  
+    <div class="css-typing">
+        <h1 class= "line1" >Welcome</h1>
+        <h1 class= "line2" >to the</h1>
+        <h1 class= "line3" >Tutoring Snail!</h1>
+    </div>
+
     <img id="logo" src="{% static 'pages/snail.png' %}" alt="Tutoring Snail Logo" width="300">
+    <div class="motto">
+        <h2>"Learn at your own pace"</h2>
+    </div>
+
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const photoElement = document.getElementById("logo");
+        // Initialize html elements
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = document.querySelectorAll(".css-typing h1");
+            const photoElement = document.getElementById("logo");
+            const newTextElement = document.querySelector(".motto");
 
-          setTimeout(() => {
-              photoElement.classList.add("fade-in");
-          }, 0);
+            let delay = 0;
 
-          setTimeout(() => {
-              document.body.classList.add("fade-out");
-              setTimeout(() => {
-                  window.location.href = "home";
-              }, 1000);
-          }, 14000); 
-      });
-  </script>
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = "1";
+                    line.style.width = "auto";
+                    if (index === 0) {
+                        line.classList.add("typing");
+                    }
+                    setTimeout(() => {
+                        if (index < lines.length - 1) {
+                            line.classList.remove("typing");
+                            lines[index + 1].classList.add("typing");
+                        }
+                    }, 1500);
+                }, delay);
+                delay += 1500;
+            });
+
+            // Ensure the last line retains the blinking cursor
+            setTimeout(() => {
+                const lastLine = lines[lines.length - 1];
+                lastLine.style.borderRight = "0.15em solid #352D28";
+                lastLine.style.animation = "blink .75s step-end infinite alternate";
+            }, delay);
+
+            // Start the photo animation as immediately as possible
+            setTimeout(() => {
+                photoElement.classList.add("fade-in");
+            }, 0);
+
+            // Show motto text after the photo has fully appeared
+            setTimeout(() => {
+                newTextElement.classList.add("show-text");
+
+                // Redirect to a new page after the text fades in
+                setTimeout(() => {
+                    document.body.classList.add("fade-out"); // Add fade-out class
+                    setTimeout(() => {
+                        window.location.href = "home";
+                    }, 1000); // Match the transition duration in CSS
+                }, 5500); // Adjust the delay as needed
+            }, delay + 500); // Add additional delay for the motto text to appear
+        });
+    </script>
 </body>
 </html>
 
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  /* GLOBAL STYLES */
+body {
+    background-color: #D5D2CD;
+    padding-top: 5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     text-align: center;
-    transition: opacity 1s ease-out;
-    background-color: #D5D2CD;
-  }
+    transition: opacity 1s ease-out; /* Smooth fade-out effect */
+}
 
-  .video-background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
+body.fade-out {
+    opacity: 0; /* Fade out by reducing opacity */
+}
 
-  body.fade-out {
-    opacity: 0; 
-  }
+/* Typing effect for the text lines */
+.css-typing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-  #logo {
+.css-typing h1 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 70px;
+    color: #352D28;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0; /* Remove default margins */
+}
+
+.typing {
+    border-right: .15em solid #352D28; /* The typewriter cursor */
+}
+
+.css-typing h1:nth-child(1) {
+    width: 0; /* Start with 0 width */
+    animation: type1 1.5s steps(7, end) forwards;
+}
+
+.css-typing h1:nth-child(2) {
+    width: 0; /* Start with 0 width */
+    animation: type2 1.5s steps(6, end) 1.5s forwards;
+}
+
+.css-typing h1:nth-child(3) {
+    width: 0; /* Start with 0 width */
+    animation: type3 1.5s steps(14, end) 3s forwards, blink .75s step-end infinite alternate 3s;
+}
+
+@keyframes type1 {
+    from { width: 0; }
+    to { width: 7ch; }
+}
+
+@keyframes type2 {
+    from { width: 0; }
+    to { width: 6ch; }
+}
+
+@keyframes type3 {
+    from { width: 0; }
+    to { width: 14ch; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Photo animation */
+#logo {
     opacity: 0;
     position: relative;
     left: -100%;
-    margin-top: 210px;
-    transition: opacity 10.5s ease-in, left 10.5s ease-in; 
-    height: 30%;
-    width: 20%;
-  }
+    margin-top: 20px; /* Adjust this value as needed */
+    transition: opacity 9s ease-in, left 9s ease-in; /* Match transition duration with typing animation */
+}
 
-  .fade-in {
-    opacity: 1 !important;
-    left: 0 !important; 
-  }
+.fade-in {
+    opacity: 1 !important; /* Force opacity to 1 */
+    left: 0 !important; /* Move to the middle */
+}
 
-  .show-text {
+.motto {
+    color: #352D28;
+    font-family: monospace;
+    font-size: 40px;
+    opacity: 0;
+    transition: opacity 4.5s ease-in;
+    margin-top: 20px;
+}
+
+.show-text {
     opacity: 1 !important;
-  }
+}
 </style>
