@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet'>
     <title>The Tutoring Snail</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'pages/snail.png' %}">
 </head>
 <body>
-  {% load static %}
     <header>
         <div class="logo">The Tutoring Snail</div>
+        <img id="logo" src="{% static 'pages/snail.png' %}">
         <nav class="nav-links">
             <a href="#services" class="service_button">Services</a>
             <a href="../aboutUs">About</a>
-            <a href="#contact">Contact</a>
             <a href="#booking-container">
               <button class="book-now">Book Now</button>
             </a>
@@ -129,7 +130,7 @@
                 <div class="step-number">2</div>
                 <h2>Your Information</h2>
                 <div>
-                  <form>
+                  <form action="https://formsubmit.co/myathedrummer@gmail.com" method="POST">
                     <label for="fname">First Name</label>
                     <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
                 
@@ -159,13 +160,13 @@
                       <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
                     </div>
                     
-                    <div id="comments">
+                    <div id="comments-container">
                       <textarea id="comments" name="comments" placeholder="Anything else you would like us to know?"></textarea>
                     </div>
-
+                    
                     <button type="button" class="back-button" onclick="goBack()">Back</button>
-                    <button class="submit-button">Submit</button>
-                  </form>
+                    <button type="button" class="submit-button">Continue</button>
+                
                 </div>
             </div>
           <div>
@@ -189,6 +190,8 @@
               <p id="confirmation-comments"></p>
               <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
               <button onclick="cancel()">Cancel</button>
+              <button type="submit">Submit</button>
+            </form>
           </div>          
         </div>
     </div>
@@ -353,34 +356,35 @@
         }
 
         function showConfirmation() {
-            const firstName = document.getElementById('fname').value;
-            const lastName = document.getElementById('lname').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const age = document.getElementById('age').value;
-            const grade = document.getElementById('grade').value;
-            const disabilities = document.getElementById('disabilities').value;
-            const disability = document.getElementById('disability-explanation').value;
-            const comments = document.getElementById('comments').value;
+          const firstName = document.getElementById('fname').value;
+          const lastName = document.getElementById('lname').value;
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const age = document.getElementById('age').value;
+          const grade = document.getElementById('grade').value;
+          const disabilities = document.getElementById('disabilities').value;
+          const disability = document.getElementById('disability-explanation').value;
+          const comments = document.getElementById('comments').value;
 
-            document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
-            document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
-            document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
-            document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
-            document.getElementById('confirmation-email').textContent = `Email: ${email}`;
-            document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
-            document.getElementById('confirmation-age').textContent = `Age: ${age}`;
-            document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
-            document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
-            document.getElementById('confirmation-disability').value = `Disability: ${disability}`;
-            document.getElementById('confirmation-comments').value = `Comments: ${comments}`;
+          document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
+          document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
+          document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
+          document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+          document.getElementById('confirmation-email').textContent = `Email: ${email}`;
+          document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
+          document.getElementById('confirmation-age').textContent = `Age: ${age}`;
+          document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
+          document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
+          document.getElementById('confirmation-disability').textContent = `Disability: ${disability}`;
+          document.getElementById('confirmation-comments').textContent = `Comments: ${comments}`;
 
-            document.querySelector('.info-form-after').style.display = 'none';
-            document.querySelector('.info-form').style.display = 'block';
-            document.getElementById('confirmation-section').style.display = 'block';
-            document.getElementById('confirmation-section-after').style.display = 'none';
-            document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
-        }
+          document.querySelector('.info-form-after').style.display = 'none';
+          document.querySelector('.info-form').style.display = 'block';
+          document.getElementById('confirmation-section').style.display = 'block';
+          document.getElementById('confirmation-section-after').style.display = 'none';
+          document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
+      }
+
 
         document.querySelector('.submit-button').addEventListener('click', function (e) {
             e.preventDefault();
@@ -402,206 +406,224 @@
             e.preventDefault();
             document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+          const hamburger = document.getElementById('hamburger');
+          const navLinks = document.querySelector('.nav-links');
+          const intro = document.getElementById('intro');
+
+          hamburger.addEventListener('click', function() {
+              hamburger.classList.toggle('active');
+              navLinks.classList.toggle('active');
+              if (navLinks.classList.contains('active')) {
+                  const introHeight = intro.offsetHeight;
+                  navLinks.style.height = introHeight + 'px';
+              } else {
+                  navLinks.style.height = 'auto';
+              }
+          });
+      });
     </script>
 </body>
 </html>
 
 <style>
-  body {
-      font-family: 'Sanchez', serif;
-      background-color: #D5D2CD;
-      color: #352D28;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-  }
+body {
+    font-family: 'Sanchez', serif;
+    background-color: #D5D2CD;
+    color: #352D28;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  header {
-      background-color: #D5D2CD;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      flex-wrap: wrap;
-  }
+header {
+    background-color: #D5D2CD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+}
 
-  .logo {
-      font-size: 50px;
-      font-weight: bold;
-  }
+.logo {
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 80px;
+}
 
-  nav {
-      display: flex;
-      flex-wrap: wrap;
-  }
+nav {
+    display: flex;
+    flex-wrap: wrap;
+}
 
-  nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #352D28;
-      font-size: 30px;
-  }
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #352D28;
+    font-size: 30px;
+}
 
-  nav a:hover {
-      text-decoration: underline;
-  }
+nav a:hover {
+    text-decoration: underline;
+}
 
-  .book-now {
-      background-color: #9C8B7E;
-      padding: 0 20px;
-      border-radius: 50px;
-      border: solid black;
-      color: #fff;
-      font-size: 30px;
-      cursor: pointer;
-  }
+.book-now {
+    background-color: #9C8B7E;
+    padding: 0 20px;
+    border-radius: 50px;
+    border: solid black;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
 
-  .book-now:hover {
-      background-color: #352D28;
-  }
+.book-now:hover {
+    background-color: #352D28;
+}
 
-  .intro {
-      background-image: url("{% static 'pages/classy.png' %}");
-      background-size: 98%;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 690px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
+.intro {
+    background-image: url("{% static 'pages/classy.png' %}");
+    background-size: 98%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 690px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-  #services {
-      padding: 20px;
-      background-color: #D5D2CD;
-      text-align: center;
-  }
+#services {
+    padding: 20px;
+    background-color: #D5D2CD;
+    text-align: center;
+}
 
-  #services h2 {
-      text-align: left;
-      font-size: 50px;
-      color: #352D28;
-      font-weight: bold;
-      margin-bottom: 20px;
-  }
-
-  .service-items {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-  }
-
-  .service-item {
-      width: 23%; 
-      margin-bottom: 20px;
-  }
-
-  .service-item img {
-      width: 98%;
-      height: 60%;
-  }
-
-  .service-item img:hover {
-      transform: translateY(-10px);
-      box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  #booking-container {
-      display: flex;
-      flex-wrap: wrap;
-      height: auto;
-      margin: 20px;
-  }
-
-  .booking-section {
-      text-align: left;
-      flex: 1;
-      margin-bottom: 20px;
-  }
-
-  .form-section {
-      flex: 1;
-      padding: 20px;
-      background-color: #d1cdc4;
-      margin-left: 10px;
-      border-radius: 8px;
-  }
-
-  h1 {
-      font-size: 3em;
-      margin: 0 0 20px 0;
-  }
-
-  .description {
-      font-size: 1.2em;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .highlight {
-    background-color: rgba(156, 139, 126, 0.5); /* Adjusted for opacity */
-    border-left: 4px solid #352D28;
-    padding: 10px;
+#services h2 {
+    text-align: left;
+    font-size: 50px;
+    color: #352D28;
+    font-weight: bold;
     margin-bottom: 20px;
-  }
+}
 
-  .highlight p {
-      color: black; 
-  }
+.service-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 
-  .form-step {
-      margin-bottom: 20px;
-  }
+.service-item {
+    width: 23%; 
+    margin-bottom: 20px;
+}
 
-  .step-number {
-      font-size: 2em;
-      background-color: #9C8B7E;
-      color: white;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin-right: 10px;
-  }
+.service-item img {
+    width: 98%;
+    height: 60%;
+}
 
-  .appointment-options {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-  }
+.service-item img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
 
-  .appointment {
-      text-align: center;
-      width: 30%;
-      background-color: #fff;
-      margin: 10px;
-      padding: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-  }
+#booking-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    margin: 20px;
+}
 
-  .appointment:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-  }
+.booking-section {
+    text-align: left;
+    flex: 1;
+    margin-bottom: 20px;
+}
 
-  .book-button {
-      background-color: #9C8B7E;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-  }
+.form-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #d1cdc4;
+    margin-left: 10px;
+    border-radius: 8px;
+}
 
-  .book-button:hover {
-      background-color: #352D28;
-  }
+h1 {
+    font-size: 3em;
+    margin: 0 0 20px 0;
+}
+
+.description {
+    font-size: 1.2em;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.highlight {
+  background-color: rgba(156, 139, 126, 0.5); /* Adjusted for opacity */
+  border-left: 4px solid #352D28;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.highlight p {
+    color: black; 
+}
+
+.form-step {
+    margin-bottom: 20px;
+}
+
+.step-number {
+    font-size: 2em;
+    background-color: #9C8B7E;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.appointment-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.appointment {
+    text-align: center;
+    width: 30%;
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.appointment:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-button {
+    background-color: #9C8B7E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.book-button:hover {
+    background-color: #352D28;
+}
 
 .popup {
     position: fixed;
@@ -677,18 +699,50 @@
   }
 
   .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-  }
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    width: 44px;
+    height: 33px;
+    z-index: 10;
+}
 
-  .bar {
-      height: 4px;
-      width: 25px;
-      background-color: #352D28;
-      margin: 3px 0;
-      transition: 0.4s;
-  }
+.bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin: 6px 0;
+    background-color: white;
+    transition: all 0.4s ease;
+}
+
+.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(48deg);
+}
+
+.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-48deg);
+}
+
+.nav-links.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color:  #352D28;
+    text-align: center;
+    z-index: 1;
+    height: auto; /* Default height will be set dynamically */
+}
 
   .confirmation-form {
       display: none;
@@ -810,18 +864,18 @@
       }
 
       .hamburger.active .bar:nth-child(2) {
-          opacity: 0;
-      }
+        opacity: 0;
+        }
 
-      .hamburger.active .bar:nth-child(1) {
-          transform: translateY(7px) rotate(45deg);
-      }
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
 
-      .hamburger.active .bar:nth-child(3) {
-          transform: translateY(-7px) rotate(-45deg);
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
       }
   }
-
+  
   .appointment-options {
       display: flex;
       justify-content: space-around;
@@ -830,5 +884,12 @@
 
   .info-form-after {
       display: none;
+  }
+
+  #logo {
+      width: 80px;
+      height: 80px;
+      position: absolute;
+      margin-bottom: 30px;
   }
 </style>
