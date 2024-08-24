@@ -9,14 +9,12 @@
     <link rel="icon" type="image/x-icon" href="{% static 'pages/snail.png' %}">
 </head>
 <body>
-  {% load static %}
     <header>
         <div class="logo">The Tutoring Snail</div>
         <img id="logo" src="{% static 'pages/snail.png' %}">
         <nav class="nav-links">
             <a href="#services" class="service_button">Services</a>
             <a href="../aboutUs">About</a>
-            <a href="#contact">Contact</a>
             <a href="#booking-container">
               <button class="book-now">Book Now</button>
             </a>
@@ -132,7 +130,7 @@
                 <div class="step-number">2</div>
                 <h2>Your Information</h2>
                 <div>
-                  <form>
+                  <form action="https://formsubmit.co/myathedrummer@gmail.com" method="POST">
                     <label for="fname">First Name</label>
                     <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
                 
@@ -162,13 +160,13 @@
                       <input type="text"id="disability-explanation" name="disability-explanation" placeholder="Explain any learning disabilities.."></textarea>
                     </div>
                     
-                    <div id="comments">
+                    <div id="comments-container">
                       <textarea id="comments" name="comments" placeholder="Anything else you would like us to know?"></textarea>
                     </div>
-
+                    
                     <button type="button" class="back-button" onclick="goBack()">Back</button>
-                    <button class="submit-button">Submit</button>
-                  </form>
+                    <button type="button" class="submit-button">Continue</button>
+                
                 </div>
             </div>
           <div>
@@ -192,6 +190,8 @@
               <p id="confirmation-comments"></p>
               <button type="button" class="back-button" onclick="goBackInfo()">Back</button>
               <button onclick="cancel()">Cancel</button>
+              <button type="submit">Submit</button>
+            </form>
           </div>          
         </div>
     </div>
@@ -356,34 +356,35 @@
         }
 
         function showConfirmation() {
-            const firstName = document.getElementById('fname').value;
-            const lastName = document.getElementById('lname').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const age = document.getElementById('age').value;
-            const grade = document.getElementById('grade').value;
-            const disabilities = document.getElementById('disabilities').value;
-            const disability = document.getElementById('disability-explanation').value;
-            const comments = document.getElementById('comments').value;
+          const firstName = document.getElementById('fname').value;
+          const lastName = document.getElementById('lname').value;
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const age = document.getElementById('age').value;
+          const grade = document.getElementById('grade').value;
+          const disabilities = document.getElementById('disabilities').value;
+          const disability = document.getElementById('disability-explanation').value;
+          const comments = document.getElementById('comments').value;
 
-            document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
-            document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
-            document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
-            document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
-            document.getElementById('confirmation-email').textContent = `Email: ${email}`;
-            document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
-            document.getElementById('confirmation-age').textContent = `Age: ${age}`;
-            document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
-            document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
-            document.getElementById('confirmation-disability').value = `Disability: ${disability}`;
-            document.getElementById('confirmation-comments').value = `Comments: ${comments}`;
+          document.getElementById('confirmation-appointment').textContent = `Appointment: ${selectedAppointment}`;
+          document.getElementById('confirmation-date').textContent = `Date: ${selectedDate}`;
+          document.getElementById('confirmation-time').textContent = `Time: ${selectedTime}`;
+          document.getElementById('confirmation-name').textContent = `Name: ${firstName} ${lastName}`;
+          document.getElementById('confirmation-email').textContent = `Email: ${email}`;
+          document.getElementById('confirmation-phone').textContent = `Phone: ${phone}`;
+          document.getElementById('confirmation-age').textContent = `Age: ${age}`;
+          document.getElementById('confirmation-grade').textContent = `Grade: ${grade}`;
+          document.getElementById('confirmation-disabilities').textContent = `Disabilities: ${disabilities}`;
+          document.getElementById('confirmation-disability').textContent = `Disability: ${disability}`;
+          document.getElementById('confirmation-comments').textContent = `Comments: ${comments}`;
 
-            document.querySelector('.info-form-after').style.display = 'none';
-            document.querySelector('.info-form').style.display = 'block';
-            document.getElementById('confirmation-section').style.display = 'block';
-            document.getElementById('confirmation-section-after').style.display = 'none';
-            document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
-        }
+          document.querySelector('.info-form-after').style.display = 'none';
+          document.querySelector('.info-form').style.display = 'block';
+          document.getElementById('confirmation-section').style.display = 'block';
+          document.getElementById('confirmation-section-after').style.display = 'none';
+          document.getElementById('confirmation-section').scrollIntoView({ behavior: 'smooth' });
+      }
+
 
         document.querySelector('.submit-button').addEventListener('click', function (e) {
             e.preventDefault();
