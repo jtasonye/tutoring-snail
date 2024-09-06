@@ -701,7 +701,7 @@ h1 {
   .hamburger {
     display: none;
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 20px;
     cursor: pointer;
     width: 44px;
@@ -738,7 +738,7 @@ h1 {
     position: absolute;
     top: 60px;
     left: 0;
-    background-color:  #352D28;
+    background-color:  white;
     text-align: center;
     z-index: 1;
     height: auto; /* Default height will be set dynamically */
@@ -847,36 +847,8 @@ h1 {
     background-color: #31873e;
 }
 
-
-  @media (max-width: 768px) {
-      nav {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-      }
-
-      nav.active {
-          display: flex;
-      }
-
-      .hamburger {
-          display: flex;
-      }
-
-      .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-        }
-
-        .hamburger.active .bar:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .hamburger.active .bar:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-      }
-  }
   
-  .appointment-options {
+.appointment-options {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
@@ -892,4 +864,131 @@ h1 {
       position: absolute;
       margin-bottom: 30px;
   }
+
+@media (max-width: 1024px) {
+    .logo {
+        font-size: 2.5em;
+        margin-left: 1.25em;
+    }
+
+    nav a {
+        font-size: 1.5em;
+    }
+
+    .book-now {
+        font-size: 1.5em;
+        padding: 0 0.9375em;
+    }
+
+    #services h2 {
+        font-size: 2.5em;
+    }
+
+    .service-item {
+        width: 45%; /* Adjust width for smaller screens */
+    }
+
+    .appointment {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    #logo {
+      width: 50px;
+      height: 50px;
+      margin-top: -15px;
+      margin-bottom: 0;
+    }
+
+    .logo {
+      display: none;
+    }
+
+    nav a {
+        font-size: 1.25em;
+    }
+
+    header {
+      height: 30px;
+    }
+
+    .book-now {
+        font-size: 1.25em;
+        padding: 0 0.625em;
+    }
+
+    .service-item {
+        width: 100%; /* Stack items on top of each other */
+    }
+
+    .appointment {
+        width: 100%;
+    }
+
+    #booking-container {
+        flex-direction: column;
+    }
+
+    .form-section {
+        margin-left: 0;
+        margin-top: 1.25em;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    nav {
+        flex-direction: column;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    #logo {
+      width: 50px;
+      height: 50px;
+      margin-top: -15px;
+    }
+
+    header {
+      height: 30px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    nav a {
+        font-size: 1em;
+    }
+
+    .book-now {
+        font-size: 1em;
+        padding: 0 0.5em;
+    }
+
+    .service-item img {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .intro {
+        height: 300px;
+        background-size: cover;
+    }
+
+    #services h2 {
+        font-size: 1.875em;
+    }
+}
+
 </style>
