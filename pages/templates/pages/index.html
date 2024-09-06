@@ -69,16 +69,15 @@
                     document.body.classList.add("fade-out"); // Add fade-out class
                     setTimeout(() => {
                         window.location.href = "home";
-                    }, 1000); // Match the transition duration in CSS
-                }, 5500); // Adjust the delay as needed
-            }, delay + 500); // Add additional delay for the motto text to appear
+                    }, 1000); 
+                }, 5500);
+            }, delay + 500);
         });
     </script>
 </body>
 </html>
 
-<style>
-  /* GLOBAL STYLES */
+    <style>
 body {
     background-color: #D5D2CD;
     padding-top: 5em;
@@ -175,4 +174,38 @@ body.fade-out {
 .show-text {
     opacity: 1 !important;
 }
-</style>
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 2em;
+            }
+
+            .css-typing h1 {
+                font-size: 8vw; /* Larger font size on smaller screens */
+            }
+
+            #logo {
+                width: 60vw;
+                max-width: 200px; /* Smaller logo on small screens */
+            }
+
+            .motto {
+                font-size: 6vw; /* Larger motto text on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .css-typing h1 {
+                font-size: 10vw; /* Even larger font size on very small screens */
+            }
+
+            #logo {
+                width: 70vw;
+                max-width: 150px; /* Smaller logo on very small screens */
+            }
+
+            .motto {
+                font-size: 8vw; /* Larger motto text on very small screens */
+            }
+        }
+    </style>
