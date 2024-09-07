@@ -19,6 +19,17 @@ def book( request ):
 def services( request ):
   return render( request, 'pages/services.html' )
 
+def math( request ):
+  return render( request, 'pages/math.html' )
+
+def CS( request ):
+  return render( request, 'pages/CS.html' )
+
+def resume( request ):
+  return render( request, 'pages/resume.html' )
+
+def linkedIn( request ):
+  return render( request, 'pages/linkedIn.html' ) 
 
 
 
