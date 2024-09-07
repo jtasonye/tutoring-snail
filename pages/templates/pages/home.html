@@ -32,23 +32,33 @@
     <section id="services">
         <h2>Our Services</h2>
         <div class="service-items">
+         
             <div class="service-item">
+              <a href="../math">
                 <img src="{% static 'pages/Math.png' %}" alt="Service 1">
+              </a>
                 <h3>Math Courses</h3>
                 <p>Explore the list of math courses we tutor!</p>
             </div>
+          
             <div class="service-item">
+              <a href="../CS">
                 <img src="{% static 'pages/Computer.png' %}" alt="Service 2">
+              </a>
                 <h3>Computer Science Courses</h3>
                 <p>Explore the list of computer science courses we tutor!</p>
             </div>
             <div class="service-item">
-                <img src="{% static 'pages/Resume.png' %}" alt="Service 3">
+              <a href="../resume">
+                <img src="{% static 'pages/Resume.png' %}" alt="Service 3">                
+              </a>
                 <h3>Resume Guidance</h3>
                 <p>Need help building your resume? We can help!</p>
             </div>
             <div class="service-item">
+              <a href="../linkedIn">
                 <img src="{% static 'pages/LinkedIn.png' %}" alt="Service 4">
+              </a>
                 <h3>LinkedIn Guidance</h3>
                 <p>Want to make your LinkedIn profile more appealing to recruiters? We can help!</p>
             </div>
@@ -919,7 +929,23 @@ h1 {
     }
 
     .service-item {
-        width: 100%; /* Stack items on top of each other */
+        width: 43%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .service-item img {
+        width: 150px; 
+        height: 150px; 
+        display: block;
+        margin: 0 auto 10px auto; 
+        border-radius: 50%; 
+        object-fit: cover; 
+    }
+
+
+    .service-item p {
+      display: none;
     }
 
     .appointment {
